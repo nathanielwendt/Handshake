@@ -219,7 +219,7 @@ class TestContractConforms(AppEngineTest):
 class TestNameConversion(AppEngineTest):
     def test_basic(self):
         name = "green%20leaf"
-        self.assertEqual("green_leaf", APIUtils.name_to_backend_format(name))
+        self.assertEqual("green_leaf", APIUtils.route_name_to_backend_format(name))
 
     def test_underscore_to_name(self):
         underscore = "green_leaf"

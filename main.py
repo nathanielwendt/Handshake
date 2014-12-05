@@ -14,8 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import webapp2
-from api_handlers import *
+from route_handlers import *
+from message_handlers import *
+from user_handlers import *
 from web_handlers import *
 
 v1_routes = [

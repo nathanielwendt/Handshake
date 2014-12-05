@@ -1,6 +1,11 @@
 SOURCE_TYPE_SMS = 0
 SOURCE_TYPE_NATIVE = 1
 SOURCE_TYPE_EMAIL = 2
+SOURCE_VALUE_NATIVE = "Native"
+
+# method to set the messenger to be in mock mode
+def set_mock_mode():
+    pass
 
 def send_message(channel, channel_type, message):
     if channel_type == SOURCE_TYPE_SMS:

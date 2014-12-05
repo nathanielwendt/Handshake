@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import json
 import datetime
 import messenger
+import urllib
 
 class CoreModel(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True, indexed=True)
@@ -103,7 +104,19 @@ class Route(CustomModel):
                 return True
         return False
 
+    @staticmethod
+    def get_by_name(name):
+        route_name = urllib.unquote(name).strip().lower()
+        routes = Route.query(Route.name == name)
+        if routes is None:
+            raise ModelException("no route exists with that name")
+        elif routes.count() > 1:
+            raise ModelException("more than one route exists with that name")
+        else:
+            return routes.get()
 
+class ModelException(BaseException):
+    pass
 
 
 class Message(CustomModel):

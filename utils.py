@@ -26,18 +26,6 @@ class APIUtils(object):
     def epoch_to_datetime(seconds):
         return datetime.datetime.fromtimestamp(seconds)
 
-    @staticmethod
-    def name_to_backend_format(name):
-        name_safe = urllib.unquote(name)
-        index = name_safe.find(" ")
-        return name_safe[:index] + "_" + name_safe[index + 1:]
-
-    @staticmethod
-    def name_to_external_format(underscore):
-        index = underscore.find("_")
-        result = underscore[:index] + " " + underscore[index + 1:]
-        return urllib.quote(result)
-
     CLIENT_MESSAGE_IDENTIFIER = "#"
     OWNER_MESSAGE_IDENTIFIER = "@"
 
