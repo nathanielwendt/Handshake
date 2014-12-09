@@ -39,8 +39,9 @@ v1_routes = [
     webapp2.Route(r'/v1/route/<name:([\w|\W])+>', handler=RouteHandler, name="Route"),
 
 
-    webapp2.Route(r'/v1/message/out', handler=MessageNativeCreationHandler, name="Message-OutCreation"),
-    webapp2.Route(r'/v1/message/in', handler=MessageSMSCreationHandler, name="Message-InTextCreation")
+    webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-OutCreation"),
+    webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-InTextCreation"),
+    # MessageEmailCreationHandler is called internally
 ]
 
 web_routes = [

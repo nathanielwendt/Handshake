@@ -68,11 +68,12 @@ class APIUtils(object):
         else:
             raise APIUtilsException("split message: could not find client short id")
 
-
-    def is_client_message(self, message):
+    @staticmethod
+    def is_client_message(message):
         return message.find(APIUtils.CLIENT_MESSAGE_IDENTIFIER) == 0
 
-    def is_owner_message(self, message):
+    @staticmethod
+    def is_owner_message(message):
         return message.find(APIUtils.OWNER_MESSAGE_IDENTIFIER) == 0
 
 
