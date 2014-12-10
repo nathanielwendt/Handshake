@@ -2,7 +2,7 @@ import json
 from handler_utils import APIBaseHandler
 import models
 import view_models
-from handler_utils import getUUID, IDTYPE, Namer
+from models import getUUID, IDTYPE
 
 class UserCreationHandler(APIBaseHandler):
     def post(self):

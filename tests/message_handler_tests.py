@@ -7,7 +7,7 @@ from test_utils import AppEngineTest
 import view_models
 import datetime
 from handler_utils import getUUID, IDTYPE
-from utils import APIUtils
+from test_utils import APIUtils
 
 class TestMessageCreationHandler(AppEngineTest):
     pass

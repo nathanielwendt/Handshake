@@ -1,6 +1,5 @@
 from handler_utils import APIBaseHandler
 import models
-from handler_utils import getUUID, IDTYPE, Namer
 from utils import APIUtils
 import messenger
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler

@@ -1,5 +1,5 @@
 import json
-from utils import APIUtils
+from utils import BaseUtils
 
 class Default(object):
     view_contract = {
@@ -68,7 +68,7 @@ class Route(object):
     @staticmethod
     def view_contract():
         return {
-            "name": "+",
+            "id": "+",
             "userId": "+",
             "emails": ["+"],
             "phoneNumbers": ["+"],
@@ -81,15 +81,15 @@ class Route(object):
         for slot in access_slot_list:
             slots.append({
                 "slotId": slot.get_id(),
-                "start": APIUtils.datetime_to_epoch(slot.start),
-                "end": APIUtils.datetime_to_epoch(slot.end),
+                "start": BaseUtils.datetime_to_epoch(slot.start),
+                "end": BaseUtils.datetime_to_epoch(slot.end),
                 "repeatInterval": slot.repeatInterval,
-                "cutoff": APIUtils.datetime_to_epoch(slot.cutoff),
+                "cutoff": BaseUtils.datetime_to_epoch(slot.cutoff),
                 "active": slot.active
             })
 
         return {
-            "name": route.name,
+            "id": route.get_id(),
             "userId": route.userId,
             "emails": json.dumps(route.emails),
             "phoneNumbers": json.dumps(route.phoneNumbers),

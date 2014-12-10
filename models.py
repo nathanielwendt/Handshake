@@ -1,13 +1,20 @@
 from google.appengine.ext import ndb
-from google.appengine.datastore.datastore_query import Cursor
 import time
 import models
-from datetime import datetime, timedelta
-import json
 import datetime
-import messenger
 import urllib
 import random
+import uuid
+
+class IDTYPE():
+    USER = "user"
+    COUNTER = "count"
+    ACCESS_SLOT = "accsl"
+    ROUTE = "route"
+    MESSAGE = "msg"
+
+def getUUID(type):
+    return type + str(uuid.uuid4())
 
 class CoreModel(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True, indexed=True)
@@ -90,7 +97,6 @@ class AccessSlot(CustomModel):
 
 #key id is route name
 class Route(CustomModel):
-    name = ndb.StringProperty(indexed=True)
     userId = ndb.StringProperty()
     emails = ndb.StringProperty(repeated=True)
     phoneNumbers = ndb.StringProperty(repeated=True)
@@ -109,16 +115,6 @@ class Route(CustomModel):
     def getMembers(self):
         return models.RouteMember.query(ancestor=self.key).fetch()
 
-    @staticmethod
-    def get_by_name(name):
-        route_name = urllib.unquote(name).strip().lower()
-        routes = Route.query(Route.name == name)
-        if routes is None:
-            raise ModelException("no route exists with that name")
-        elif routes.count() > 1:
-            raise ModelException("more than one route exists with that name")
-        else:
-            return routes.get()
 
 #key id is route_member_name/id
 class RouteMember(CustomModel):

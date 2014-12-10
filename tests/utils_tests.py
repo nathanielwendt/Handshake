@@ -1,6 +1,8 @@
 import unittest
 from test_utils import AppEngineTest
 from utils import APIUtils, APIUtilsException
+from utils import MessageUtils
+
 
 class TestContractConforms(AppEngineTest):
     def setUp(self):
@@ -216,103 +218,90 @@ class TestContractConforms(AppEngineTest):
         self.expect_result(failed=1, passed=0)
 
 
-class TestNameConversion(AppEngineTest):
-    def test_basic(self):
-        name = "green%20leaf"
-        self.assertEqual("green_leaf", APIUtils.route_name_to_backend_format(name))
-
-    def test_underscore_to_name(self):
-        underscore = "green_leaf"
-        self.assertEqual("green%20leaf", APIUtils.name_to_external_format(underscore))
-
 class TestSplitMessage(AppEngineTest):
-
     ##### Test split client message
     def test_split_client_message_valid(self):
         message_raw = "#red puddle hey man how are you"
-        (route_name, message) = APIUtils.split_client_message(message_raw)
+        (route_name, message) = MessageUtils.split_client_message(message_raw)
         self.assertEqual("red puddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     def test_split_client_message_valid_case(self):
         message_raw = "#rEd PUddle hey man how are you"
-        (route_name, message) = APIUtils.split_client_message(message_raw)
+        (route_name, message) = MessageUtils.split_client_message(message_raw)
         self.assertEqual("red puddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     def test_split_client_message_invalid(self):
         message_raw = "#redpuddleheymanhowareyou"
-        self.assertRaises(APIUtilsException, APIUtils.split_client_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_no_identifier(self):
         message_raw = "red puddle hey man how are you"
-        self.assertRaises(APIUtilsException, APIUtils.split_client_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_invalid_empty(self):
         message_raw = ""
-        self.assertRaises(APIUtilsException, APIUtils.split_client_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
 
         message_raw = None
-        self.assertRaises(APIUtilsException, APIUtils.split_client_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_multiple_identifiers(self):
         message_raw = "garbage###red puddle hey man how are you"
-        (route_name, message) = APIUtils.split_client_message(message_raw)
+        (route_name, message) = MessageUtils.split_client_message(message_raw)
         self.assertEqual("red puddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     ##### Test split owner message
     def test_split_owner_message_valid(self):
         message_raw = "@nwendt2 yikes that sounds scary"
-        (short_id, message) = APIUtils.split_owner_message(message_raw)
+        (short_id, message) = MessageUtils.split_owner_message(message_raw)
         self.assertEqual("nwendt2", short_id)
         self.assertEqual("yikes that sounds scary", message)
 
     def test_split_owner_message_valid_case(self):
         message_raw = "@NwenDT2 yikes that sounds scary"
-        (short_id, message) = APIUtils.split_owner_message(message_raw)
+        (short_id, message) = MessageUtils.split_owner_message(message_raw)
         self.assertEqual("nwendt2", short_id)
         self.assertEqual("yikes that sounds scary", message)
 
     def test_split_owner_message_invalid(self):
         message_raw = "@nwendt2yikesthatsoundsscary"
-        self.assertRaises(APIUtilsException, APIUtils.split_owner_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
 
     def test_split_owner_no_identifier(self):
         message_raw = "nwendt2 yikes that sounds scary"
-        self.assertRaises(APIUtilsException, APIUtils.split_owner_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
 
     def test_split_owner_message_invalid_empty(self):
         message_raw = ""
-        self.assertRaises(APIUtilsException, APIUtils.split_owner_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
 
         message_raw = None
-        self.assertRaises(APIUtilsException, APIUtils.split_owner_message, message_raw)
+        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
 
     def test_split_owner_message_multiple_identifiers(self):
         message_raw = "garbage@@@@nwendt2 yikes that sounds scary"
-        (route_name, message) = APIUtils.split_owner_message(message_raw)
+        (route_name, message) = MessageUtils.split_owner_message(message_raw)
         self.assertEqual("nwendt2", route_name)
         self.assertEqual("yikes that sounds scary", message)
-
-        import models
-        models.Message(id="aofeijf").put()
 
 
 class TestGetEmailFromSender(AppEngineTest):
     def test_get_email_valid(self):
         sender_field = "Joe <joe@gmail.com>"
-        sender = APIUtils.get_email_from_sender_field(sender_field)
+        sender = MessageUtils.get_email_from_sender_field(sender_field)
         self.assertEqual("joe@gmail.com", sender)
 
     def test_get_email_valid_spaces(self):
         sender_field = " Joe  < joe@gmail.com >  "
-        sender = APIUtils.get_email_from_sender_field(sender_field)
+        sender = MessageUtils.get_email_from_sender_field(sender_field)
         self.assertEqual("joe@gmail.com", sender)
 
     def test_get_email_invalid(self):
         sender_field = " Joe < joe@gmail.com"
-        self.assertRaises(APIUtilsException, APIUtils.get_email_from_sender_field, sender_field)
+        self.assertRaises(APIUtilsException, MessageUtils.get_email_from_sender_field, sender_field)
 
 if __name__ == '__main__':
     unittest.main()

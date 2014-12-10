@@ -1,5 +1,4 @@
 import webapp2
-import uuid
 import urllib
 import urllib2
 import json
@@ -7,128 +6,11 @@ import json
 import lib.formencode
 from lib.formencode import validators
 from utils import APIUtils
-import datetime
 import view_models
-import cloudstorage
-import time
-import models
-from google.appengine.ext import ndb
-import random
 
-class IDTYPE():
-    USER = "user"
-    COUNTER = "count"
-    ACCESS_SLOT = "accsl"
-    ROUTE = "route"
-    MESSAGE = "msg"
-
-class NamingGenerator(object):
-    NOUN_KEY = "nouns"
-    ADJ_KEY = "adjectives"
-    ANIM_KEY = "animals"
-    FILES = {
-        "adjectives": "adjectives.txt",
-        "animals": "animals.txt",
-        "nouns": "nouns.txt"
-    }
-    PATH_BASE = "/handshake-app.appspot.com/"
-
-    @staticmethod
-    #retrieves a route name that is guaranteed to be unique
-    #will continue trying routes until it finds a unique entry
-    #the route entry will be created with the route name used as an id and placeholder
-    #to 'save' the spot of the route entry for the assigned name
-    def get_route_name():
-        adjectives = models.Naming.get_by_id(NamingGenerator.ADJ_KEY)
-        nouns = models.Naming.get_by_id(NamingGenerator.NOUN_KEY)
-
-        while True:
-            time_seed = int(time.time() * 100) #time in deci-seconds
-            adjective = adjectives.get_random_entry(time_seed)
-            noun = nouns.get_random_entry(time_seed)
-            cand_route_name = adjective + " " + noun
-            try:
-                NamingGenerator.create_route(cand_route_name)
-                return cand_route_name
-            except UtilsException:
-                continue
-
-    @staticmethod
-    @ndb.transactional
-    #creates a dummy route entry to reserve the name (subsequent requests will see that it now exists)
-    #if the route already exists, throws an exception
-    def create_route(cand_route_name):
-        route = models.Route.get_by_id(cand_route_name)
-        if route is None:
-            models.Route(id=cand_route_name).put()
-        else:
-            raise UtilsException("route exists for that name")
-
-    @staticmethod
-    def get_route_member_name(route_entity):
-        animals = models.Naming.get_by_id(NamingGenerator.ANIM_KEY)
-        animals_length = len(animals.items)
-
-        created_animals = models.RouteMember.query(ancestor=route_entity.key).fetch()
-        created_animals_length = len(created_animals)
-
-        multiple = created_animals_length / animals_length
-        index = created_animals_length % animals_length + 1
-
-        if multiple == 0:
-            append_item = ''
-        else:
-            append_item = str(multiple)
-
-        animal = animals.items[index] + append_item
-        animal_entry = models.RouteMember(parent=route_entity.key, id=animal)
-        animal_entry.put()
-        return animal
-
-
-    @staticmethod
-    # Populates the Naming model with an entry for each item in FILES
-    # Does not check if the file size is too large to itemize into the datastore entry
-    # so it is assumed that check is made in creating the input files
-    def initialize_ds_names():
-        for name,file in NamingGenerator.FILES.iteritems():
-            valid_items = []
-            delim = ""
-
-            gcs_file = cloudstorage.open(filename=NamingGenerator.PATH_BASE + file, mode='r')
-            for line in gcs_file:
-                line = line.strip()
-                if not line or\
-                        len(line.split(" ")) > 1 or\
-                        line.find("-") > 0 or\
-                        len(line) > 8:
-                    continue
-
-                valid_items.append(line)
-
-            entry = models.Naming(id=name)
-            entry.items = valid_items
-            entry.put()
-
-
-
-
-
-
-class Namer(object):
-    ROUTE_STRINGS = ["green_tea", "solo_chief", "bag_town", "upper_dime", "total_hat", "grand_stuff"]
-    route_index = 0
-    route_length = len(ROUTE_STRINGS)
-
-    @staticmethod
-    def get_next():
-        next = Namer.ROUTE_STRINGS[Namer.route_index % Namer.route_length]
-        Namer.route_index += 1
-        return next
-
-def getUUID(type):
-    return type + str(uuid.uuid4())
-    #return base64.urlsafe_b64decode(uuid.uuid4().bytes)[:-2]
+@staticmethod
+def get_default_success_response():
+    return {"status": "success"}
 
 class InternalAPIRequest(object):
     def __init__(self, method='GET', endpoint_name='', base_uri='', uri_args={}):
@@ -161,10 +43,6 @@ class InternalAPIRequest(object):
             self.response_code = e.code
             self.response_data = e.read()
             return None
-
-class UtilsException(Exception):
-    def __init__(self, message):
-        self.message = message
 
 
 class WebException(Exception):

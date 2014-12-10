@@ -5,14 +5,20 @@ import models
 from test_utils import AppEngineTest
 import view_models
 import datetime
-from handler_utils import getUUID, IDTYPE
-from utils import APIUtils
+from models import getUUID, IDTYPE
+from test_utils import APIUtils
+from utils import BaseUtils
+
+
+#TODO: test the hrdatastore with probability of 0 to test the consistency and see
+# if our guarantees match
 
 class TestRouteCreationHandler(AppEngineTest):
     def setUp(self):
         super(TestRouteCreationHandler, self).setUp()
         self.endpoint = "/v1/route"
         self.now = datetime.datetime.utcnow()
+        AppEngineTest.set_up_naming()
 
     def test_basic(self):
         self.method = 'POST'
@@ -22,20 +28,20 @@ class TestRouteCreationHandler(AppEngineTest):
             "phoneNumbers": json.dumps(["3533524434"]),
             "slots": json.dumps([
                 {
-                    "start": APIUtils.datetime_to_epoch(self.now),
-                    "end": APIUtils.datetime_to_epoch(self.now),
+                    "start": BaseUtils.datetime_to_epoch(self.now),
+                    "end": BaseUtils.datetime_to_epoch(self.now),
                     "repeatInterval": 1000,
-                    "cutoff": APIUtils.datetime_to_epoch(self.now)
+                    "cutoff": BaseUtils.datetime_to_epoch(self.now)
                 }
             ])
         }
         self.send()
         self.expect_resp_code(200)
         self.expect_resp_conforms(view_models.Route.view_contract())
-        route_name = self.response_data["name"]
+        route_id = self.response_data["id"]
         slot_id = self.response_data["slots"][0]["slotId"]
 
-        route = models.Route.get_by_name(route_name)
+        route = models.Route.get_by_id(route_id)
         slot = models.AccessSlot.get_by_id(slot_id)
         self.assertIsNotNone(route)
         self.assertIsNotNone(slot)
@@ -48,10 +54,10 @@ class TestRouteCreationHandler(AppEngineTest):
             #"phoneNumbers": json.dumps(["3533524434"]),
             "slots": json.dumps([
                 {
-                    "start": APIUtils.datetime_to_epoch(self.now),
-                    "end": APIUtils.datetime_to_epoch(self.now),
+                    "start": BaseUtils.datetime_to_epoch(self.now),
+                    "end": BaseUtils.datetime_to_epoch(self.now),
                     "repeatInterval": 1000,
-                    "cutoff": APIUtils.datetime_to_epoch(self.now)
+                    "cutoff": BaseUtils.datetime_to_epoch(self.now)
                 }
             ])
         }
@@ -66,10 +72,10 @@ class TestRouteCreationHandler(AppEngineTest):
             "phoneNumbers": json.dumps(["3533524434"]),
             "slots": json.dumps([
                 {
-                    "start": APIUtils.datetime_to_epoch(self.now),
-                    #"end": APIUtils.datetime_to_epoch(self.now),
+                    "start": BaseUtils.datetime_to_epoch(self.now),
+                    #"end": BaseUtils.datetime_to_epoch(self.now),
                     "repeatInterval": 1000,
-                    "cutoff": APIUtils.datetime_to_epoch(self.now)
+                    "cutoff": BaseUtils.datetime_to_epoch(self.now)
                 }
             ])
         }

@@ -2,9 +2,10 @@ import json
 from handler_utils import APIBaseHandler
 import models
 import view_models
-from handler_utils import getUUID, IDTYPE, Namer
-from utils import APIUtils
+from models import getUUID, IDTYPE
+from utils import BaseUtils
 import urllib
+from utils import NamingGenerator
 
 class RouteCreationHandler(APIBaseHandler):
     def post(self):
@@ -34,10 +35,10 @@ class RouteCreationHandler(APIBaseHandler):
         if emails is None and phone_numbers is None:
             self.abort(422, "need at least one phone number or email communication channel")
 
-        route_id = getUUID(IDTYPE.ROUTE)
+
+        route_id = NamingGenerator.get_route_id()
         route_data = {
             "id": route_id,
-            "name": Namer.get_next(),
             "userId": user_id,
             "emails": json.loads(emails),
             "phoneNumbers": json.loads(phone_numbers)
@@ -53,12 +54,12 @@ class RouteCreationHandler(APIBaseHandler):
             data = {
                 "id": getUUID(IDTYPE.ACCESS_SLOT),
                 "routeId": route_id,
-                "start": APIUtils.epoch_to_datetime(slot["start"]),
-                "end": APIUtils.epoch_to_datetime(slot["end"]),
+                "start": BaseUtils.epoch_to_datetime(slot["start"]),
+                "end": BaseUtils.epoch_to_datetime(slot["end"]),
                 "repeatInterval": slot["repeatInterval"],
-                "cutoff": APIUtils.epoch_to_datetime(slot["cutoff"]),
-                "currStart": APIUtils.epoch_to_datetime(slot["start"]),
-                "currEnd": APIUtils.epoch_to_datetime(slot["end"])
+                "cutoff": BaseUtils.epoch_to_datetime(slot["cutoff"]),
+                "currStart": BaseUtils.epoch_to_datetime(slot["start"]),
+                "currEnd": BaseUtils.epoch_to_datetime(slot["end"])
             }
             next_slot = models.AccessSlot(**data)
             next_slot.put()

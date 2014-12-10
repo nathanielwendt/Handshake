@@ -1,9 +1,8 @@
 import json
-
 import models
 from test_utils import AppEngineTest
 import view_models
-from handler_utils import getUUID, IDTYPE
+from models import getUUID, IDTYPE
 
 class TestUserCreationHandler(AppEngineTest):
     def setUp(self):

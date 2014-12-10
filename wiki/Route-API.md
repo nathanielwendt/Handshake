@@ -33,7 +33,7 @@ Creates a route with 1 or more communication channels attached
 ------------
 ##[GET] /v1/route/{name}##
 
-Retrieves a route by id
+Retrieves a route by route name
 
 #####Params#####
 

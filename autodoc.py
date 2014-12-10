@@ -1,11 +1,10 @@
 import os
 import re
 import main
-import view_models
 import inspect
 import pprint
-from utils import APIUtils
-
+import view_models
+import handler_utils
 
 base_location = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -13,7 +12,6 @@ base_location = os.path.realpath(
 #configure for project here
 project_routes = main.v1_routes
 wiki_location = base_location + "/wiki"
-
 
 
 class AutoDocException(BaseException):
@@ -81,7 +79,7 @@ def extract_response_from_source(source):
 
     match_default = re.search(r'set_default_success_response', source)
     if match_default:
-        return APIUtils.get_default_success_response()
+        return handler_utils.get_default_success_response()
 
     raise AutoDocException("could not find response from source")
 

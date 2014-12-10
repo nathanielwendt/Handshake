@@ -2,8 +2,9 @@ import webapp2
 import json
 import main
 import unittest
-from utils import APIUtils
+from utils import APIUtils, NamingGenerator
 from google.appengine.ext import testbed
+
 
 class AppEngineTest(unittest.TestCase):
 
@@ -29,7 +30,6 @@ class AppEngineTest(unittest.TestCase):
 
     def tearDown(self):
         self.testbed.deactivate()
-
 
     def send(self):
         if self.method == 'POST':
@@ -63,12 +63,6 @@ class AppEngineTest(unittest.TestCase):
     def expect_resp_conforms(self, contract):
         APIUtils.check_contract_conforms(contract, self.response_data, self.assertTrue)
 
-
-class TestNamingGenerator(AppEngineTest):
-    def test(self):
-        import models
-        models.Route(id="124", name="xy").put()
-        models.Route(id="124", name="ab").put()
-
-        item = models.Route.get_by_id("124")
-        print item.name
+    @staticmethod
+    def set_up_naming():
+        NamingGenerator.initialize_ds_names(local_dir="../data/")
