@@ -62,3 +62,13 @@ class AppEngineTest(unittest.TestCase):
 
     def expect_resp_conforms(self, contract):
         APIUtils.check_contract_conforms(contract, self.response_data, self.assertTrue)
+
+
+class TestNamingGenerator(AppEngineTest):
+    def test(self):
+        import models
+        models.Route(id="124", name="xy").put()
+        models.Route(id="124", name="ab").put()
+
+        item = models.Route.get_by_id("124")
+        print item.name

@@ -7,6 +7,7 @@ import json
 import datetime
 import messenger
 import urllib
+import random
 
 class CoreModel(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True, indexed=True)
@@ -87,6 +88,7 @@ class AccessSlot(CustomModel):
             self.put()
         return val
 
+#key id is route name
 class Route(CustomModel):
     name = ndb.StringProperty(indexed=True)
     userId = ndb.StringProperty()
@@ -104,6 +106,9 @@ class Route(CustomModel):
                 return True
         return False
 
+    def getMembers(self):
+        return models.RouteMember.query(ancestor=self.key).fetch()
+
     @staticmethod
     def get_by_name(name):
         route_name = urllib.unquote(name).strip().lower()
@@ -115,9 +120,30 @@ class Route(CustomModel):
         else:
             return routes.get()
 
+#key id is route_member_name/id
+class RouteMember(CustomModel):
+    pass
+
 class ModelException(BaseException):
     pass
 
+
+class Naming(CustomModel):
+    NUM_BINS = 100
+    items = ndb.StringProperty(repeated=True)
+
+    # separates the range into buckets
+    # [  0   ][   1   ][..][  NUM_BINS - 1 ]
+    # and selects a random item from the bucket determined from the random seed
+    # time seed should be in deci-seconds
+    def get_random_entry(self, time_seed):
+        NUM_BINS = Naming.NUM_BINS
+        length = len(self.items)
+        items_in_bin = length / NUM_BINS
+        begin_range = ((time_seed % NUM_BINS) * items_in_bin)
+        end_range = begin_range + items_in_bin
+        noun_index = random.randrange(begin_range, end_range)
+        return self.items[noun_index]
 
 class Message(CustomModel):
     routeName = ndb.StringProperty(indexed=True)
@@ -133,3 +159,7 @@ class Message(CustomModel):
 
     def isOwnerMsg(self):
         return self.clientUserId == self.receiverUserId
+
+
+class Test(CustomModel):
+    num = ndb.IntegerProperty()

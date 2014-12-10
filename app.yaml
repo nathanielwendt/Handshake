@@ -5,6 +5,11 @@ api_version: 1
 threadsafe: yes
 
 handlers:
+
+
+- url: /v.*
+  script: main.app
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
@@ -12,8 +17,6 @@ handlers:
 - url: /web
   static_dir: web
 
-- url: /
-  script: main.app
 
 
 libraries:
@@ -21,3 +24,6 @@ libraries:
   version: "2.5.2"
 - name: jinja2
   version: latest
+
+builtins:
+- remote_api: on

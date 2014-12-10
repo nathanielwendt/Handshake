@@ -42,6 +42,8 @@ v1_routes = [
     webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-OutCreation"),
     webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-InTextCreation"),
     # MessageEmailCreationHandler is called internally
+
+    webapp2.Route(r'/v1/test', handler=TestHandler)
 ]
 
 web_routes = [

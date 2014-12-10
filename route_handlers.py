@@ -83,3 +83,17 @@ class RouteHandler(APIBaseHandler):
         self.set_response_view_model(view_models.Route.view_contract())
         self.api_response = view_models.Route.form(route, access_slots)
         self.send_response()
+
+from google.appengine.ext import ndb
+
+class TestHandler(APIBaseHandler):
+    def get(self):
+        entry = models.Test.get_by_id("123")
+        if not entry:
+            entry = models.Test(id="123")
+            entry.num = 0
+        else:
+            entry.num += 1
+
+        entry.put()
+        self.response.out.write(entry.num)
