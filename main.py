@@ -26,6 +26,7 @@ v1_routes = [
     #[App Names]
     #Fleet
     #Groovy
+    #Nimbus
 
     #[Channel Names]
     #Route
@@ -36,12 +37,13 @@ v1_routes = [
     #Knit
     #Notch
     webapp2.Route(r'/v1/route', handler=RouteCreationHandler, name="Route-Creation"),
-    webapp2.Route(r'/v1/route/<name:([\w|\W])+>', handler=RouteHandler, name="Route"),
+    webapp2.Route(r'/v1/route/<id:([\w|\W])+>', handler=RouteHandler, name="Route"),
+    webapp2.Route(r'/v1/route/<id:([\w|\W])+>/join', handler=RouteJoinHandler, name="Route-Join"),
 
-
-    webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-OutCreation"),
-    webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-InTextCreation"),
+    webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-NativeCreation"),
+    webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-SMSCreation"),
     # MessageEmailCreationHandler is called internally
+    webapp2.Route(r'/v1/message/<route_id:([\w|\W])+>/<user_id:([\w|\W])+>/<n:([\w|\W])+>', handler=MessageListHandler, name="Message-List")
 ]
 
 web_routes = [

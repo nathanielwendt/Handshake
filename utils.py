@@ -22,7 +22,7 @@ class MessageUtils(object):
             sender = match.group(0)
             return sender[1: len(sender) - 1].strip() #trim < >
         else:
-            raise APIUtilsException("could not find email from field")
+            raise UtilsException("could not find email from field")
 
     @staticmethod
     # expects a message formatted as:
@@ -32,36 +32,38 @@ class MessageUtils(object):
     # @throws exception if message is not formatted properly
     def split_client_message(message):
         if message == "" or message is None:
-            raise APIUtilsException("split message: empty or none input")
+            raise UtilsException("split message: empty or none input")
 
-        regex = r'(' + MessageUtils.CLIENT_MESSAGE_IDENTIFIER + '){1}([\w-])+(\s){1}([\w-])+'
+        regex = r'(' + MessageUtils.CLIENT_MESSAGE_IDENTIFIER + '){1}([\w-])+(\s){1}'
         route_name_reg = re.search(regex, message)
 
         if route_name_reg:
-            route_name_raw = route_name_reg.group(0)
+            route_name_raw = route_name_reg.group(0).strip()
             reg_match_begin = message.find(route_name_raw) #if multiple chars before @ symbol, need additional offset
-            message = message[reg_match_begin + len(route_name_raw) + 1:]
+            message = message[reg_match_begin + len(route_name_raw) + 1:].strip()
             route_name = route_name_raw[route_name_raw.find(MessageUtils.CLIENT_MESSAGE_IDENTIFIER) + 1:].lower()
             return route_name, message
         else:
-            raise APIUtilsException("split message: could not find route name")
+            raise UtilsException("split message: could not find route name")
 
     @staticmethod
     def split_owner_message(message):
         if message == "" or message is None:
-            raise APIUtilsException("split message: empty or none input")
+            raise UtilsException("split message: empty or none input")
 
-        regex = r'(' + MessageUtils.OWNER_MESSAGE_IDENTIFIER + '){1}([\w-])+(\s){1}'
-        route_name_reg = re.search(regex, message)
+        identifier_index = message.find(MessageUtils.OWNER_MESSAGE_IDENTIFIER)
+        if identifier_index <= 1:
+            raise UtilsException("split message: malformed message")
 
-        if route_name_reg:
-            route_name_raw = route_name_reg.group(0)
-            reg_match_begin = message.find(route_name_raw) #if multiple chars before @ symbol, need additional offset
-            message = message[reg_match_begin + len(route_name_raw):]
-            client_id = route_name_raw.strip()[1:].lower()
-            return client_id, message
-        else:
-            raise APIUtilsException("split message: could not find client short id")
+        member = message[:identifier_index].strip().lower()
+        remainder = message[identifier_index + 1:]
+        first_space = remainder.find(" ")
+        if first_space == -1:
+            raise UtilsException("split message: malformed message")
+
+        route = remainder[:first_space].strip().lower()
+        message = remainder[first_space + 1:].strip()
+        return member, route, message
 
     @staticmethod
     def is_client_message(message):
@@ -70,7 +72,6 @@ class MessageUtils(object):
     @staticmethod
     def is_owner_message(message):
         return message.find(MessageUtils.OWNER_MESSAGE_IDENTIFIER) == 0
-
 
 class BaseUtils(object):
     @staticmethod
@@ -115,8 +116,9 @@ class NamingGenerator(object):
             except UtilsException:
                 continue
 
+
     @staticmethod
-    @ndb.transactional
+    @ndb.transactional(retries=10)
     #creates a dummy route entry to reserve the name (subsequent requests will see that it now exists)
     #if the route already exists, throws an exception
     def create_route(cand_route_name):
@@ -131,30 +133,31 @@ class NamingGenerator(object):
         animals = models.Naming.get_by_id(NamingGenerator.ANIM_KEY)
         animals_length = len(animals.items)
 
-        created_animals = models.RouteMember.query(ancestor=route_entity.key).fetch()
-        created_animals_length = len(created_animals)
+        @ndb.transactional(retries=10)
+        def get_next(animals, animals_length):
+            created_animals = models.RouteMember.query(ancestor=route_entity.key).fetch()
+            created_animals_length = len(created_animals)
 
-        multiple = created_animals_length / animals_length
-        index = created_animals_length % animals_length + 1
+            multiple = created_animals_length / animals_length
+            index = (created_animals_length % animals_length + 1) - 1
 
-        print index
-        print animals.items[index]
-        if multiple == 0:
-            append_item = ''
-        else:
-            append_item = str(multiple)
+            if multiple == 0:
+                append_item = ''
+            else:
+                append_item = str(multiple)
 
-        animal = animals.items[index] + append_item
-        animal_entry = models.RouteMember(parent=route_entity.key, id=animal)
-        animal_entry.put()
-        return animal
+            animal = animals.items[index] + append_item
+            animal_entry = models.RouteMember(parent=route_entity.key, id=animal)
+            animal_entry.put()
+            return animal
 
+        return get_next(animals, animals_length)
 
     @staticmethod
     # Populates the Naming model with an entry for each item in FILES
     # Does not check if the file size is too large to itemize into the datastore entry
     # so it is assumed that check is made in creating the input files
-    def initialize_ds_names(local_dir=None):
+    def initialize_ds_names(local_dir=None, size_limit=None):
         for name,file in NamingGenerator.FILES.iteritems():
             valid_items = []
             delim = ""
@@ -175,7 +178,10 @@ class NamingGenerator(object):
 
             entry = models.Naming(id=name)
             random.shuffle(valid_items)
-            entry.items = valid_items
+            if size_limit is None:
+                entry.items = valid_items
+            else:
+                entry.items = valid_items[0:size_limit]
             entry.put()
 
 

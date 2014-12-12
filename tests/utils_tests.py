@@ -1,7 +1,114 @@
 import unittest
 from test_utils import AppEngineTest
-from utils import APIUtils, APIUtilsException
-from utils import MessageUtils
+from utils import APIUtils, UtilsException, MessageUtils, NamingGenerator
+from test_utils import ConsistencyTest
+import datetime
+import models
+
+class TestNamingGenerator(ConsistencyTest):
+    def setUp(self):
+        super(TestNamingGenerator, self).setUp()
+        self.now = datetime.datetime.utcnow()
+        AppEngineTest.set_up_naming()
+
+    def test_basic_route_id(self):
+        route_name = NamingGenerator.get_route_id()
+        self.assertIsNotNone(route_name)
+
+    def test_load_route_id(self):
+        routes = []
+        for i in range(1000):
+            route_id = NamingGenerator.get_route_id()
+            routes.append(route_id)
+        self.assertEqual(len(routes), len(set(routes)))
+
+    #Test that many entries that are likely colliding with the same entries still get unique route names
+    #Comment out @ndb.transactional decorator on the create_route function in NamingGenerator
+    #and this test will fail most times
+    def test_contention_route_id(self):
+        #Set up naming again, customized to only have 220 entries to create many collisions in naming
+        AppEngineTest.set_up_naming(220)
+        def get_route(results, index):
+            route_name = NamingGenerator.get_route_id()
+            self.assertIsNotNone(route_name)
+            results[index] = route_name
+
+        results = [None] * 200
+        count = 0
+        for i in range(1,41):
+            threads = [None]
+            from threading import Thread
+            for j in range(1,6):
+                t = Thread(target=get_route, args=(results, count ))
+                threads.append(t)
+                count += 1
+                t.start()
+
+            for j in range(1,6):
+                threads[j].join()
+
+        self.assertEqual(len(results), len(set(results)))
+
+    def test_basic_member(self):
+        route_id = NamingGenerator.get_route_id()
+        route = models.Route.get_by_id(route_id)
+        member_name = NamingGenerator.get_route_member_name(route)
+        self.assertIsNotNone(member_name)
+
+    def test_load_member(self):
+        route_id = NamingGenerator.get_route_id()
+        route = models.Route.get_by_id(route_id)
+        members = []
+        for i in range(500):
+            member_name = NamingGenerator.get_route_member_name(route)
+            members.append(member_name)
+        self.assertEqual(len(members), len(set(members)))
+        self.assertEqual(len(members), len(route.getMembers()))
+
+    #control the number of animals available and make sure the enumeration works
+    def test_loop_member(self):
+        models.Naming.NUM_BINS = 2
+        AppEngineTest.set_up_naming(10)
+
+        animals = models.Naming.get_by_id(NamingGenerator.ANIM_KEY)
+        last_animal = animals.items[len(animals.items) - 1]
+
+        route_id = NamingGenerator.get_route_id()
+        route = models.Route.get_by_id(route_id)
+
+        member_name = None
+        for i in range(40):
+            member_name = NamingGenerator.get_route_member_name(route)
+        self.assertEqual(member_name, last_animal + "3")
+
+    def test_contention_member(self):
+        #Set up naming again, customized to only have 220 entries to create many collisions in naming
+        AppEngineTest.set_up_naming(220)
+
+        route_id = NamingGenerator.get_route_id()
+        route = models.Route.get_by_id(route_id)
+
+        def get_route_member_name(results, index, route):
+            member_name = NamingGenerator.get_route_member_name(route)
+            self.assertIsNotNone(member_name)
+            results[index] = member_name
+
+        results = [None] * 200
+        count = 0
+        for i in range(1,41):
+            threads = [None]
+            from threading import Thread
+            for j in range(1,6):
+                t = Thread(target=get_route_member_name, args=(results, count, route))
+                threads.append(t)
+                count += 1
+                t.start()
+
+            for j in range(1,6):
+                threads[j].join()
+
+        self.assertEqual(len(results), len(set(results)))
+        self.assertEqual(len(results), len(route.getMembers()))
 
 
 class TestContractConforms(AppEngineTest):
@@ -221,74 +328,80 @@ class TestContractConforms(AppEngineTest):
 class TestSplitMessage(AppEngineTest):
     ##### Test split client message
     def test_split_client_message_valid(self):
-        message_raw = "#red puddle hey man how are you"
+        message_raw = "#RedPuddle hey man how are you"
         (route_name, message) = MessageUtils.split_client_message(message_raw)
-        self.assertEqual("red puddle", route_name)
+        self.assertEqual("redpuddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     def test_split_client_message_valid_case(self):
-        message_raw = "#rEd PUddle hey man how are you"
+        message_raw = "#rEdPUddle hey man how are you"
         (route_name, message) = MessageUtils.split_client_message(message_raw)
-        self.assertEqual("red puddle", route_name)
+        self.assertEqual("redpuddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     def test_split_client_message_invalid(self):
         message_raw = "#redpuddleheymanhowareyou"
-        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
+        self.assertRaises(UtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_no_identifier(self):
         message_raw = "red puddle hey man how are you"
-        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
+        self.assertRaises(UtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_invalid_empty(self):
         message_raw = ""
-        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
+        self.assertRaises(UtilsException, MessageUtils.split_client_message, message_raw)
 
         message_raw = None
-        self.assertRaises(APIUtilsException, MessageUtils.split_client_message, message_raw)
+        self.assertRaises(UtilsException, MessageUtils.split_client_message, message_raw)
 
     def test_split_client_message_multiple_identifiers(self):
-        message_raw = "garbage###red puddle hey man how are you"
+        message_raw = "garbage###RedPuddle hey man how are you"
         (route_name, message) = MessageUtils.split_client_message(message_raw)
-        self.assertEqual("red puddle", route_name)
+        self.assertEqual("redpuddle", route_name)
+        self.assertEqual("hey man how are you", message)
+
+    def test_split_client_message_extra_space(self):
+        message_raw = "#RedPuddle    hey man how are you"
+        (route_name, message) = MessageUtils.split_client_message(message_raw)
+        self.assertEqual("redpuddle", route_name)
         self.assertEqual("hey man how are you", message)
 
     ##### Test split owner message
     def test_split_owner_message_valid(self):
-        message_raw = "@nwendt2 yikes that sounds scary"
-        (short_id, message) = MessageUtils.split_owner_message(message_raw)
-        self.assertEqual("nwendt2", short_id)
+        message_raw = "cat@TangyBubble yikes that sounds scary"
+        (member, route, message) = MessageUtils.split_owner_message(message_raw)
+        self.assertEqual("cat", member)
+        self.assertEqual("tangybubble", route)
         self.assertEqual("yikes that sounds scary", message)
 
+    #should only preserve case sensitivity in message
     def test_split_owner_message_valid_case(self):
-        message_raw = "@NwenDT2 yikes that sounds scary"
-        (short_id, message) = MessageUtils.split_owner_message(message_raw)
-        self.assertEqual("nwendt2", short_id)
-        self.assertEqual("yikes that sounds scary", message)
+        message_raw = "Cat@tangybUbble yikes That soundS SCary"
+        (member, route, message) = MessageUtils.split_owner_message(message_raw)
+        self.assertEqual("cat", member)
+        self.assertEqual("tangybubble", route)
+        self.assertEqual("yikes That soundS SCary", message)
 
-    def test_split_owner_message_invalid(self):
-        message_raw = "@nwendt2yikesthatsoundsscary"
-        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
+    def test_split_owner_message_invalid_no_space(self):
+        message_raw = "cat@TangyBubbleyikesthatsoundsscary"
+        self.assertRaises(UtilsException, MessageUtils.split_owner_message, message_raw)
 
-    def test_split_owner_no_identifier(self):
-        message_raw = "nwendt2 yikes that sounds scary"
-        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
+    def test_split_owner_message_invalid_no_member(self):
+        message_raw = "@TangyBubble yikesthatsoundsscary"
+        self.assertRaises(UtilsException, MessageUtils.split_owner_message, message_raw)
 
     def test_split_owner_message_invalid_empty(self):
         message_raw = ""
-        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
+        self.assertRaises(UtilsException, MessageUtils.split_owner_message, message_raw)
 
-        message_raw = None
-        self.assertRaises(APIUtilsException, MessageUtils.split_owner_message, message_raw)
+    def test_split_owner_message_multiple_ats(self):
+        message_raw = "cat@TangyBubble @yikes El3k g"
+        (member, route, message) = MessageUtils.split_owner_message(message_raw)
+        self.assertEqual("cat", member)
+        self.assertEqual("tangybubble", route)
+        self.assertEqual("@yikes El3k g", message)
 
-    def test_split_owner_message_multiple_identifiers(self):
-        message_raw = "garbage@@@@nwendt2 yikes that sounds scary"
-        (route_name, message) = MessageUtils.split_owner_message(message_raw)
-        self.assertEqual("nwendt2", route_name)
-        self.assertEqual("yikes that sounds scary", message)
-
-
-class TestGetEmailFromSender(AppEngineTest):
+class TestEmailUtils(AppEngineTest):
     def test_get_email_valid(self):
         sender_field = "Joe <joe@gmail.com>"
         sender = MessageUtils.get_email_from_sender_field(sender_field)
@@ -301,7 +414,7 @@ class TestGetEmailFromSender(AppEngineTest):
 
     def test_get_email_invalid(self):
         sender_field = " Joe < joe@gmail.com"
-        self.assertRaises(APIUtilsException, MessageUtils.get_email_from_sender_field, sender_field)
+        self.assertRaises(UtilsException, MessageUtils.get_email_from_sender_field, sender_field)
 
 if __name__ == '__main__':
     unittest.main()

@@ -4,7 +4,7 @@ import main
 import unittest
 from utils import APIUtils, NamingGenerator
 from google.appengine.ext import testbed
-
+from google.appengine.datastore import datastore_stub_util
 
 class AppEngineTest(unittest.TestCase):
 
@@ -24,8 +24,13 @@ class AppEngineTest(unittest.TestCase):
         self.testbed = testbed.Testbed()
         # Then activate the testbed, which prepares the service stubs for use.
         self.testbed.activate()
+
         # Next, declare which service stubs you want to use.
-        self.testbed.init_datastore_v3_stub()
+        if hasattr(self, 'policy'):
+            self.testbed.init_datastore_v3_stub(consistency_policy=self.policy)
+        else:
+            self.testbed.init_datastore_v3_stub()
+
         self.testbed.init_memcache_stub()
 
     def tearDown(self):
@@ -64,5 +69,13 @@ class AppEngineTest(unittest.TestCase):
         APIUtils.check_contract_conforms(contract, self.response_data, self.assertTrue)
 
     @staticmethod
-    def set_up_naming():
-        NamingGenerator.initialize_ds_names(local_dir="../data/")
+    def set_up_naming(size_limit=None):
+        NamingGenerator.initialize_ds_names(local_dir="../data/", size_limit=size_limit)
+
+
+# Consistency Test class guarantees that we are viewing the datastore with full eventual consistency
+# This means that it will test that our strong consistency assumptions are correct
+class ConsistencyTest(AppEngineTest):
+    def setUp(self):
+        self.policy = datastore_stub_util.PseudoRandomHRConsistencyPolicy(probability=0)
+        super(ConsistencyTest, self).setUp()

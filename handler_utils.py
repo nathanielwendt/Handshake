@@ -8,10 +8,6 @@ from lib.formencode import validators
 from utils import APIUtils
 import view_models
 
-@staticmethod
-def get_default_success_response():
-    return {"status": "success"}
-
 class InternalAPIRequest(object):
     def __init__(self, method='GET', endpoint_name='', base_uri='', uri_args={}):
         if endpoint_name == '':
@@ -106,6 +102,8 @@ class APIBaseHandler(webapp2.RequestHandler):
             else:
                 object[key] = value
 
+    def set_default_success_response(self):
+        self.nom_response = view_models.Default.view_contract()
 
     def send_response(self):
         if self.view_model:

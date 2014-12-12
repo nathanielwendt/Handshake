@@ -2,9 +2,11 @@ import json
 from utils import BaseUtils
 
 class Default(object):
-    view_contract = {
-        "status": "success"
-    }
+    @staticmethod
+    def view_contract():
+        return {
+            "status": "success"
+        }
 
 class User(object):
     @staticmethod
@@ -49,19 +51,42 @@ class Message(object):
     def view_contract():
         return {
             "mesageId": "+",
-            "senderId": "+",
-            "routeName": "+",
-            "message": "+"
+            "clientUserId": "+",
+            "isClient": "+",
+            "routeId": "+",
+            "message": "+",
         }
 
     @staticmethod
     def form(message):
         return {
             "messageId": message.get_id(),
-            "userId": message.userId,
-            "routeName": message.routeName,
+            "clientUserId": message.clientUserId,
+            "isClient": message.is_client_message,
+            "routeId": message.routeId,
             "message": message.body
         }
+
+    @staticmethod
+    def view_list_contract():
+        return {
+            "messages": [Message.view_contract()],
+            "more": "+",
+            "cursor": "*"
+        }
+
+    @staticmethod
+    def form_list(messages, more, cursor):
+        message_list = []
+        for message in messages:
+            message_list.append(Message.form(message))
+        return {
+            "messages": message_list,
+            "more": more,
+            "cursor": cursor.urlsafe()
+        }
+
+
 
 
 class Route(object):

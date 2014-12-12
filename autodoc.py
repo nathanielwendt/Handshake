@@ -6,6 +6,10 @@ import pprint
 import view_models
 import handler_utils
 
+#Will enable print statements to quickly find cause of handler which does not
+#conform to autodocs expectations
+DEBUG = False
+
 base_location = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
@@ -79,7 +83,7 @@ def extract_response_from_source(source):
 
     match_default = re.search(r'set_default_success_response', source)
     if match_default:
-        return handler_utils.get_default_success_response()
+        return view_models.Default.view_contract()
 
     raise AutoDocException("could not find response from source")
 
@@ -132,6 +136,8 @@ def merge(req_contract, comments):
 def create_docs():
     api_docs = {}
     for route in project_routes:
+        if DEBUG:
+            print route.name
         #route name is required
         if not route.name:
             raise AutoDocException("All routes must have a name: " + str(route))
@@ -139,6 +145,8 @@ def create_docs():
         for name, method in route.handler.__dict__.iteritems():
             if callable(method) and method.__doc__:
                 method_entry = {}
+                if DEBUG:
+                    print method
 
                 source = inspect.getsource(method)
                 comments = extract_comments_and_params(inspect.getdoc(method))
@@ -181,7 +189,6 @@ def write_docs(api_docs):
     for resource, resource_data in api_docs.iteritems():
         with open(wiki_location + "/" + resource + "-API.md", 'w') as file:
             file.write("# " + resource + " API \n\n")
-
             for method in resource_data:
                 file.write("------------\n")
                 file.write("##" + method["type"] + " ")

@@ -1,0 +1,62 @@
+# Message API 
+
+------------
+##[POST] /v1/message/native##
+
+Creates a message from the native app.
+
+#####Params#####
+`message` message body (varchar, required)
+
+`receiverUserId` the id of the receiving user (id, optional)
+
+`senderUserId` the id of the sending user (id, required)
+
+`routeId` the id of the route along which to send the message (varchar, required)
+
+#####Response#####
+
+~~~~
+{'clientUserId': '+',
+ 'isClient': '+',
+ 'mesageId': '+',
+ 'message': '+',
+ 'routeId': '+'}
+~~~~
+
+------------
+##[POST] /v1/message/sms##
+
+Creates a message from an sms message
+
+#####Params#####
+`message` message body, route name should be included in message (varchar, required)
+
+`phoneNumber` number from which the message originates (num-list, required)
+
+#####Response#####
+
+~~~~
+{'status': 'success'}
+~~~~
+
+------------
+##[GET] /v1/message/{route_id}/{user_id}/{n}##
+
+Retrieves a message by id.
+
+#####Params#####
+`cursor` query cursor to resume querying position (id, optional)
+
+#####Response#####
+
+~~~~
+{'cursor': '*',
+ 'messages': [{'clientUserId': '+',
+               'isClient': '+',
+               'mesageId': '+',
+               'message': '+',
+               'routeId': '+'}],
+ 'more': '+'}
+~~~~
+

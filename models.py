@@ -59,7 +59,7 @@ class User(CustomModel):
     phoneNumbers = ndb.StringProperty(repeated=True)
 
 class AccessSlot(CustomModel):
-    routeId = ndb.StringProperty()
+    routeId = ndb.StringProperty(indexed=True)
     active = ndb.BooleanProperty(default=True)
     start = ndb.DateTimeProperty()
     end = ndb.DateTimeProperty()
@@ -95,9 +95,10 @@ class AccessSlot(CustomModel):
             self.put()
         return val
 
-#key id is route name
+#key id is route name underscore
 class Route(CustomModel):
     userId = ndb.StringProperty()
+    displayName = ndb.StringProperty() #first letter capitalized
     emails = ndb.StringProperty(repeated=True)
     phoneNumbers = ndb.StringProperty(repeated=True)
 
@@ -116,9 +117,17 @@ class Route(CustomModel):
         return models.RouteMember.query(ancestor=self.key).fetch()
 
 
-#key id is route_member_name/id
+#key name is route_id + member_id
 class RouteMember(CustomModel):
     pass
+
+    @staticmethod
+    def create_entry(route_id, member_id):
+        return RouteMember(id=str(route_id + member_id))
+
+    @staticmethod
+    def get_entry(route_id, member_id):
+        return RouteMember.get_by_id(str(route_id + member_id))
 
 class ModelException(BaseException):
     pass
@@ -142,7 +151,7 @@ class Naming(CustomModel):
         return self.items[noun_index]
 
 class Message(CustomModel):
-    routeName = ndb.StringProperty(indexed=True)
+    routeId = ndb.StringProperty(indexed=True)
     source = ndb.StringProperty()
     sourceType = ndb.IntegerProperty()
     senderUserId = ndb.StringProperty()
@@ -150,11 +159,33 @@ class Message(CustomModel):
     clientUserId = ndb.StringProperty(indexed=True)
     body = ndb.StringProperty()
 
-    def isClientMsg(self):
+    def is_client_msg(self):
         return self.clientUserId == self.senderUserId
 
-    def isOwnerMsg(self):
+    def is_owner_msg(self):
         return self.clientUserId == self.receiverUserId
+
+    @staticmethod
+    def get_route_member_id(user_id, route_id):
+        entry = Message.get_channel_entries(user_id, route_id).get()
+        if entry is None:
+            return None
+        else:
+            return entry.routeMemberId
+
+    @staticmethod
+    def has_used_route(user_id, route_id):
+        return Message.get_channel_entries(user_id, route_id).count() != 0
+
+    @staticmethod
+    def get_channel_entries(user_id, route_id):
+        return Message.query(Message.routeId == route_id)\
+                         .filter(Message.senderUserId == user_id)
+
+    @staticmethod
+    def get_route_entries(route_id):
+        return Message.query(Message.routeId == route_id)
+
 
 
 class Test(CustomModel):

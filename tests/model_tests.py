@@ -1,7 +1,7 @@
 import models
 from test_utils import AppEngineTest
 import datetime
-from handler_utils import getUUID, IDTYPE
+from models import getUUID, IDTYPE
 
 class TestAccessSlot(AppEngineTest):
     def setUp(self):

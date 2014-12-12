@@ -1,27 +1,29 @@
 from handler_utils import APIBaseHandler
 import models
-from utils import APIUtils
+from utils import MessageUtils, NamingGenerator, UtilsException
 import messenger
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from messenger import Email, MessageException
+import view_models
+from google.appengine.datastore.datastore_query import Cursor
 
 
-def create_client_message(source, sender_user, message_body, route_name):
-    if sender_user is None:
-        raise MessageException("could not find a user associated with number")
-
-    route = models.Route.query(models.Route.name == route_name)
+def create_client_message(source, source_type, sender_user_id, message_body, route_id):
+    route = models.Route.get_by_id(route_id)
+    if route is None:
+        raise MessageException("could not find route associated with id")
 
     message_data = {
-        "routeName": route_name,
+        "routeId": route_id,
         "source": source,
-        "sourceType": messenger.SOURCE_TYPE_SMS,
-        "senderUserId": sender_user.get_id(),
+        "sourceType": source_type,
+        "senderUserId": sender_user_id,
         "receiverUserId": route.userId,
-        "clientUserId": sender_user.get_id(),
+        "clientUserId": sender_user_id ,
         "body": message_body
     }
-    models.Message(**message_data).put()
+    message = models.Message(**message_data)
+    message.put()
 
     for outgoing_email in route.emails:
         messenger.send_message(outgoing_email, messenger.SOURCE_TYPE_EMAIL, message_body)
@@ -29,38 +31,46 @@ def create_client_message(source, sender_user, message_body, route_name):
     for outgoing_phone_number in route.phoneNumbers:
         messenger.send_message(outgoing_phone_number, messenger.SOURCE_TYPE_SMS, message_body)
 
-def create_owner_message(source, sender_user, message_body, client_id):
-    if sender_user is None:
-        raise MessageException("could not find a user associated with number")
-    prev_messages, next_cursor, more = models.Message.query(models.Message.senderUserId == client_id)\
-                                                .filter(models.Message.receiverUserId == sender_user.get_id())\
+    return message
+
+def create_owner_message(source, source_type, sender_user_id, message_body, client_id, route_id):
+    prev_messages, next_cursor, more = models.Message.query(models.Message.routeId == route_id)\
+                                                .filter(models.Message.clientUserId == client_id)\
                                                 .order(-models.Message.created)\
                                                 .fetch_page(1)
 
-    if prev_messages.get(0) is None:
+    last_message = prev_messages.get()
+    if last_message is None:
         raise MessageException("could not find message to respond to")
 
-    last_message = prev_messages.get() #only fetched one, but need to get it
-
     message_data = {
-        "routeName": last_message.routeName,
+        "routeId": last_message.routeName,
+        "routeMemberId": client_id,
         "source": source,
-        "sourceType": messenger.SOURCE_TYPE_SMS,
-        "senderUserId": sender_user.get_id(),
+        "sourceType": source_type,
+        "senderUserId": sender_user_id,
         "receiverUserId": last_message.senderUserId,
         "clientUserId": last_message.senderUserId,
         "body": message_body
     }
-    models.Message(**message_data).put()
-
+    message = models.Message(**message_data)
+    message.put()
     messenger.send_message(last_message.source, last_message.sourceType, message_body)
+
+    return message
 
 
 class MessageSMSCreationHandler(APIBaseHandler):
     def post(self):
+        """
+        Creates a message from an sms message
+
+        :param message: message body, route name should be included in message
+        :param phoneNumber: number from which the message originates
+        """
         contract = {
-            "message": "+",
-            "phoneNumber": "+"
+            "message": ["varchar","+"],
+            "phoneNumber": ["num-list","+"]
         }
         try:
             self.check_params_conform(contract)
@@ -69,30 +79,46 @@ class MessageSMSCreationHandler(APIBaseHandler):
 
         message_raw = self.get_param("message").strip()
         phone_number = self.get_param("phoneNumber")
-        if APIUtils.is_client_message(message_raw):
-            route_name, body = APIUtils.split_client_message(message_raw)
-            sender_user = models.User.query(models.User.phoneNumbers == phone_number)
+        source_type = messenger.SOURCE_TYPE_SMS
+
+        if MessageUtils.is_client_message(message_raw):
             try:
-                create_client_message(phone_number, sender_user, body, route_name)
+                route_name, body = MessageUtils.split_client_message(message_raw)
+            except UtilsException, e:
+                self.abort(422, e)
+            sender_user = models.User.query(models.User.phoneNumbers == phone_number)
+            if sender_user is None:
+                self.abort(422, "Could not find a user associated with that number")
+            try:
+                create_client_message(phone_number, source_type, sender_user.get_id(), body, route_name)
             except MessageException, e:
                 self.abort(422, e)
 
-        elif APIUtils.is_owner_message(message_raw):
-            client_id, body = APIUtils.split_owner_message(message_raw)
+        elif MessageUtils.is_owner_message(message_raw):
+            try:
+                client_id, route_id, body = MessageUtils.split_owner_message(message_raw)
+            except UtilsException, e:
+                self.abort(422, e)
             sender_user = models.User.query(models.User.phoneNumbers == phone_number)
             try:
-                create_owner_message(phone_number, sender_user, body, client_id)
+                create_owner_message(phone_number, source_type, sender_user.get_id(), body, client_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
         else:
             self.abort(403, "message recipient could not be determined")
 
+        self.set_default_success_response()
+        self.send_response()
+
 
 class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
     def receive(self, mail_message):
-        email_sender = APIUtils.get_email_from_sender_field(mail_message.sender)
-        email_body = mail_message.body
+        try:
+            email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
+        except UtilsException, e:
+            self.abort(422, e)
 
+        email_body = mail_message.body
         client_id = mail_message.headers.get(Email.HEADER_EMBED_FIELD)
         # client message
         if client_id is None or client_id == "":
@@ -111,12 +137,20 @@ class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
                 self.abort(422, e)
 
 
-# Can only create client message from the native app
 class MessageNativeCreationHandler(APIBaseHandler):
     def post(self, **kwargs):
+        """
+        Creates a message from the native app.
+
+        :param senderUserId: the id of the sending user
+        :param receiverUserId: the id of the receiving user
+        :param routeId: the id of the route along which to send the message
+        :param message: message body
+        """
         contract = {
             "senderUserId": ["id","+"],
-            "routeName": ["varchar","+"],
+            "receiverUserId": ["id", "*"],
+            "routeId": ["varchar","+"],
             "message": ["varchar","+"]
         }
         try:
@@ -125,14 +159,64 @@ class MessageNativeCreationHandler(APIBaseHandler):
             return
 
         sender_user_id = self.get_param("senderUserId")
+        receiver_user_id = self.get_param("receiverUserId")
         message_body = self.get_param("message")
-        route_name = self.get_param("routeName")
+        route_id = self.get_param("routeId")
+
         sender_user = models.User.get_by_id(sender_user_id)
         if sender_user is None:
             self.abort(422, "could not find user by that username")
 
+        source_type = messenger.SOURCE_TYPE_NATIVE
+        source = messenger.SOURCE_VALUE_NATIVE
+
+        #message client -> owner
+        if receiver_user_id is None:
+            try:
+                message = create_client_message(source_type, source, sender_user_id,
+                                  message_body, route_id)
+            except MessageException, e:
+                self.abort(422, e)
+        #message owner -> client
+        else:
+            try:
+                message = create_owner_message(source_type, source, sender_user_id,
+                                     message_body,receiver_user_id, route_id)
+            except MessageException, e:
+                self.abort(422, e)
+
+        self.set_response_view_model(view_models.Message.view_contract())
+        self.api_response = view_models.Message.form(message)
+        self.send_response()
+
+
+class MessageListHandler(APIBaseHandler):
+    def get(self, **kwargs):
+        """
+        Retrieves a message by id.
+
+        :param cursor: query cursor to resume querying position
+        """
+        contract = {
+            "cursor": ["id", "*"]
+        }
         try:
-            create_client_message(messenger.SOURCE_VALUE_NATIVE, sender_user, message_body, route_name)
-        except MessageException, e:
-            self.abort(422, e)
+            self.check_params_conform(contract)
+        except:
+            return
+
+        route_id = kwargs["route_id"]
+        client_id = kwargs["user_id"]
+        num_to_fetch = kwargs["n"]
+
+        curr_cursor = Cursor(urlsafe=self.get_param('cursor'))
+        messages, cursor, more = models.Message.query(models.Message.routeId == route_id)\
+                                               .filter(models.Message.clientUserId == client_id)\
+                                                .fetch_page(num_to_fetch, start_cursor=curr_cursor)
+
+        self.set_response_view_model(view_models.Message.view_list_contract())
+        self.api_response = view_models.Message.form_list(messages, more, cursor)
+        self.send_response()
+
+
 

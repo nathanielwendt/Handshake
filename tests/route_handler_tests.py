@@ -2,16 +2,12 @@ import json
 import urllib
 
 import models
-from test_utils import AppEngineTest
+from test_utils import AppEngineTest, ConsistencyTest
 import view_models
 import datetime
 from models import getUUID, IDTYPE
-from test_utils import APIUtils
-from utils import BaseUtils
+from utils import BaseUtils, NamingGenerator
 
-
-#TODO: test the hrdatastore with probability of 0 to test the consistency and see
-# if our guarantees match
 
 class TestRouteCreationHandler(AppEngineTest):
     def setUp(self):
@@ -85,13 +81,11 @@ class TestRouteCreationHandler(AppEngineTest):
 class TestRouteHandler(AppEngineTest):
     def setUp(self):
         super(TestRouteHandler, self).setUp()
-        self.route_id = getUUID(IDTYPE.ROUTE)
+        self.route_id = "green leaf"
         self.now = datetime.datetime.utcnow()
-        self.route_name = "green leaf"
         self.external_route_name = urllib.quote("green leaf")
         route_data = {
             "id": self.route_id,
-            "name": self.route_name,
             "userId": "user001",
             "emails": ["email1@gmail.com","email2@gmail.com"],
             "phoneNumbers": ["3603335346"]
