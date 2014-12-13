@@ -1,4 +1,4 @@
-from handler_utils import APIBaseHandler
+from handler_utils import APIBaseHandler, ValidatorException
 import models
 from utils import MessageUtils, NamingGenerator, UtilsException
 import messenger
@@ -12,6 +12,9 @@ def create_client_message(source, source_type, sender_user_id, message_body, rou
     route = models.Route.get_by_id(route_id)
     if route is None:
         raise MessageException("could not find route associated with id")
+
+    if not route.is_now_valid():
+        raise MessageException("route is closed")
 
     message_data = {
         "routeId": route_id,
@@ -39,13 +42,12 @@ def create_owner_message(source, source_type, sender_user_id, message_body, clie
                                                 .order(-models.Message.created)\
                                                 .fetch_page(1)
 
-    last_message = prev_messages.get()
-    if last_message is None:
+    if prev_messages == []:
         raise MessageException("could not find message to respond to")
+    last_message = prev_messages[0]
 
     message_data = {
-        "routeId": last_message.routeName,
-        "routeMemberId": client_id,
+        "routeId": last_message.routeId,
         "source": source,
         "sourceType": source_type,
         "senderUserId": sender_user_id,
@@ -61,27 +63,29 @@ def create_owner_message(source, source_type, sender_user_id, message_body, clie
 
 
 class MessageSMSCreationHandler(APIBaseHandler):
-    def post(self):
+    def post(self, **kwargs):
         """
         Creates a message from an sms message
 
-        :param message: message body, route name should be included in message
-        :param phoneNumber: number from which the message originates
+        :param Body: message body, route name should be included in message
+        :param From: number from which the message originates
         """
         contract = {
-            "message": ["varchar","+"],
-            "phoneNumber": ["num-list","+"]
+            "Body": ["varchar","+"],
+            "From": ["phone","+"]
         }
+        print self.request.params
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
-        message_raw = self.get_param("message").strip()
-        phone_number = self.get_param("phoneNumber")
+        message_raw = self.get_param("Body").strip()
+        phone_number = self.get_param("From")
         source_type = messenger.SOURCE_TYPE_SMS
 
         if MessageUtils.is_client_message(message_raw):
+            print "message senindg client"
             try:
                 route_name, body = MessageUtils.split_client_message(message_raw)
             except UtilsException, e:
@@ -90,18 +94,21 @@ class MessageSMSCreationHandler(APIBaseHandler):
             if sender_user is None:
                 self.abort(422, "Could not find a user associated with that number")
             try:
-                create_client_message(phone_number, source_type, sender_user.get_id(), body, route_name)
+                create_client_message(phone_number, source_type, sender_user.get_id(),
+                                      body, route_name)
             except MessageException, e:
                 self.abort(422, e)
 
         elif MessageUtils.is_owner_message(message_raw):
+            print "message sending owner"
             try:
                 client_id, route_id, body = MessageUtils.split_owner_message(message_raw)
             except UtilsException, e:
                 self.abort(422, e)
             sender_user = models.User.query(models.User.phoneNumbers == phone_number)
             try:
-                create_owner_message(phone_number, source_type, sender_user.get_id(), body, client_id, route_id)
+                create_owner_message(phone_number, source_type, sender_user.get_id(),
+                                     body, client_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
         else:
@@ -113,10 +120,13 @@ class MessageSMSCreationHandler(APIBaseHandler):
 
 class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
     def receive(self, mail_message):
+        print "receive email"
         try:
             email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
         except UtilsException, e:
             self.abort(422, e)
+
+        #TODO: route_id lowercase and strip!
 
         email_body = mail_message.body
         client_id = mail_message.headers.get(Email.HEADER_EMBED_FIELD)
@@ -138,7 +148,7 @@ class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
 
 
 class MessageNativeCreationHandler(APIBaseHandler):
-    def post(self, **kwargs):
+    def post(self):
         """
         Creates a message from the native app.
 
@@ -155,13 +165,13 @@ class MessageNativeCreationHandler(APIBaseHandler):
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
         sender_user_id = self.get_param("senderUserId")
         receiver_user_id = self.get_param("receiverUserId")
         message_body = self.get_param("message")
-        route_id = self.get_param("routeId")
+        route_id = self.get_param("routeId").lower().strip()
 
         sender_user = models.User.get_by_id(sender_user_id)
         if sender_user is None:
@@ -170,17 +180,18 @@ class MessageNativeCreationHandler(APIBaseHandler):
         source_type = messenger.SOURCE_TYPE_NATIVE
         source = messenger.SOURCE_VALUE_NATIVE
 
+        message = None
         #message client -> owner
         if receiver_user_id is None:
             try:
-                message = create_client_message(source_type, source, sender_user_id,
+                message = create_client_message(source, source_type, sender_user_id,
                                   message_body, route_id)
             except MessageException, e:
                 self.abort(422, e)
         #message owner -> client
         else:
             try:
-                message = create_owner_message(source_type, source, sender_user_id,
+                message = create_owner_message(source, source_type, sender_user_id,
                                      message_body,receiver_user_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
@@ -193,7 +204,7 @@ class MessageNativeCreationHandler(APIBaseHandler):
 class MessageListHandler(APIBaseHandler):
     def get(self, **kwargs):
         """
-        Retrieves a message by id.
+        Retrieves a list of messages as a back and forth between a route owner and single client
 
         :param cursor: query cursor to resume querying position
         """
@@ -202,7 +213,7 @@ class MessageListHandler(APIBaseHandler):
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
         route_id = kwargs["route_id"]

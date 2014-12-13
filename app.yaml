@@ -5,7 +5,9 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-
+- url: /_ah/mail/.+
+  script: main.app
+  login: admin
 
 - url: /v.*
   script: main.app
@@ -17,7 +19,8 @@ handlers:
 - url: /web
   static_dir: web
 
-
+inbound_services:
+- mail
 
 libraries:
 - name: webapp2

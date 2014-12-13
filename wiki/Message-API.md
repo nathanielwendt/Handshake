@@ -18,8 +18,8 @@ Creates a message from the native app.
 
 ~~~~
 {'clientUserId': '+',
+ 'id': '+',
  'isClient': '+',
- 'mesageId': '+',
  'message': '+',
  'routeId': '+'}
 ~~~~
@@ -30,9 +30,9 @@ Creates a message from the native app.
 Creates a message from an sms message
 
 #####Params#####
-`message` message body, route name should be included in message (varchar, required)
+`Body` message body, route name should be included in message (varchar, required)
 
-`phoneNumber` number from which the message originates (num-list, required)
+`From` number from which the message originates (phone, required)
 
 #####Response#####
 
@@ -43,7 +43,7 @@ Creates a message from an sms message
 ------------
 ##[GET] /v1/message/{route_id}/{user_id}/{n}##
 
-Retrieves a message by id.
+Retrieves a list of messages as a back and forth between a route owner and single client
 
 #####Params#####
 `cursor` query cursor to resume querying position (id, optional)
@@ -53,8 +53,8 @@ Retrieves a message by id.
 ~~~~
 {'cursor': '*',
  'messages': [{'clientUserId': '+',
+               'id': '+',
                'isClient': '+',
-               'mesageId': '+',
                'message': '+',
                'routeId': '+'}],
  'more': '+'}

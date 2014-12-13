@@ -1,11 +1,12 @@
 import json
-from handler_utils import APIBaseHandler
+from handler_utils import APIBaseHandler, ValidatorException
 import models
 import view_models
 from models import getUUID, IDTYPE
 from utils import BaseUtils
 import urllib
 from utils import NamingGenerator
+from google.appengine.ext import ndb
 
 class RouteCreationHandler(APIBaseHandler):
     def post(self):
@@ -14,19 +15,19 @@ class RouteCreationHandler(APIBaseHandler):
 
         :param userId: Id for user that is creating the route
         :param emails: Emails attached to the route
-        :param phoneNumbers: Numbers attached to the route
+        :param phoneNumbers: Phone numbers attached to the route (10 digit, not characters other than numbers)
         :param slots: Access Slot items formatted as { "start": "+", "end": "+", "repeatInterval": "+", "cutoff": "+" }
         :return:
         """
         contract = {
             "userId": ["id", "+"],
             "emails": ["email_list", "*"],
-            "phoneNumbers": ["num_list", "*"],
+            "phoneNumbers": ["phone_list", "*"],
             "slots": ["slot_list","+"],
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
         user_id = self.get_param("userId")
@@ -75,7 +76,7 @@ class RouteHandler(APIBaseHandler):
         """
         Retrieves a route by route name
         """
-        route_id = urllib.unquote(kwargs["id"])
+        route_id = kwargs["id"]
         route = models.Route.get_by_id(route_id)
         if route is None:
             self.abort(422, "could not find route by that id")
@@ -96,12 +97,12 @@ class RouteHandler(APIBaseHandler):
         """
         contract = {
             "emails": ["email_list", "*"],
-            "phoneNumbers": ["num_list", "*"],
-            "slots": ["slot_list","*"],
+            "phoneNumbers": ["phone_list", "*"],
+            "slots": ["slot_list", "*"],
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
         route_id = urllib.unquote(kwargs["id"])
@@ -128,7 +129,8 @@ class RouteHandler(APIBaseHandler):
 
         if slots is not None:
             #delete old slots
-            ###TODO: multikey delete here of old slots
+            list_of_keys = ndb.put_multi(access_slot_list)
+            ndb.delete_multi(list_of_keys)
 
             #create new slots
             slots = json.loads(self.get_param("slots"))
@@ -153,7 +155,7 @@ class RouteHandler(APIBaseHandler):
         self.send_response()
 
 
-class RouteJoinHandler(APIBaseHandler):
+class RouteMemberCreationHandler(APIBaseHandler):
     def post(self, **kwargs):
         """
         Joins a user to a specific route
@@ -165,15 +167,51 @@ class RouteJoinHandler(APIBaseHandler):
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
+        user_id = self.get_param("userId")
         route_id = kwargs["id"]
-        route = models.Route.get_by_id("route_id")
+        route = models.Route.get_by_id(route_id)
         if route is None:
             self.abort(422, "could not find route to join")
 
-        NamingGenerator.get_route_member_name(route)
+        if route.userId == user_id:
+            self.abort(422, "route owner cannot join own route")
 
-        self.set_default_success_response()
+        member = NamingGenerator.generate_route_member(route, user_id)
+
+        self.set_response_view_model(view_models.RouteMember.view_contract())
+        self.api_response = view_models.RouteMember.form(member)
         self.send_response()
+
+class RouteMemberListHandler(APIBaseHandler):
+    def get(self, **kwargs):
+        """
+        Retrieves a list of members belonging to a specific route
+
+        :param userId: id of user that is requesting the list, only the route owner is allowed here
+        """
+        contract = {
+            "userId": ["id", "+"]
+        }
+        try:
+            self.check_params_conform(contract)
+        except ValidatorException:
+            return
+
+        user_id = self.get_param("userId")
+        route_id = kwargs["id"]
+        route = models.Route.get_by_id(route_id)
+        if route is None:
+            self.abort(422, "could not find route")
+
+        if user_id != route.userId:
+            self.abort(422, "non owner of route is not allowed to request members")
+
+        members = route.get_members()
+        self.set_response_view_model(view_models.RouteMember.view_list_contract())
+        self.api_response = view_models.RouteMember.form_list(members)
+        self.send_response()
+
+

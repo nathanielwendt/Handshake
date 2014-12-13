@@ -25,6 +25,20 @@ Creates a new user.
 ~~~~
 
 ------------
+##[POST] /v1/user/{id}/notifications##
+
+Registers a user with push notifications
+
+#####Params#####
+`pushRegKey` GCM key obtained from Google (id, required)
+
+#####Response#####
+
+~~~~
+{'status': 'success'}
+~~~~
+
+------------
 ##[GET] /v1/user/{id}##
 
 Retrieves a user entry by id

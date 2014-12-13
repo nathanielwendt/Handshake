@@ -5,7 +5,7 @@ import json
 
 import lib.formencode
 from lib.formencode import validators
-from utils import APIUtils
+from utils import APIUtils, MessageUtils
 import view_models
 
 class InternalAPIRequest(object):
@@ -126,6 +126,13 @@ class APIBaseHandler(webapp2.RequestHandler):
     def get_param(self, param, safe=True):
         try:
             if safe and self.safe_params:
+                #if param is being retrieved, actually exists, and is malformed
+                #should treat the param as a required param and throw an error
+                if self.meta_data.params.get(param) is not None and\
+                            self.safe_params[param] is not None:
+                    self.abort(400, "optional param: " + param + " was included and malformed >> "
+                               +self.meta_data.params.get(param))
+
                 return self.safe_params[param]
             else:
                 return self.request.params[param]
@@ -156,14 +163,15 @@ class APIBaseHandler(webapp2.RequestHandler):
                 self.meta_data.params[violation] = "not formatted according to " + filter_type
 
         if filter.violations:
-            self.response.status_code = 400
+            self.response.status_int = 400
             self.meta_data.exists = True
             self.meta_data.general = "Required parameter(s) were not formatted properly"
             self.meta_data.params = {}
             for violation, filter_type in filter.violations.items():
                 self.meta_data.params[violation] = "not formatted according to " + filter_type
+                print violation + " not formatted according to " + filter_type
             self.send_response()
-            raise Exception()
+            raise ValidatorException()
 
 
 #Allow deeper nesting of list items
@@ -177,11 +185,20 @@ class CustomValidators(object):
             contract = view_models.AccessSlot.create_contract()
             APIUtils.check_contract_conforms(contract, entry, verify_true_action)
 
+    #Twilio number are sent with a '+DIGIT' prefix where DIGIT indicates country code,
+    # this is simply an adapter that wraps the phone number validator after stripping the country code
+    class CustomPhoneNumber(object):
+        def to_python(self, entry):
+            entry = MessageUtils.strip_country_code_from_number(entry)
+            validator = validators.PhoneNumber()
+            return validator.to_python(entry)
+
 class CustomValidatorException(BaseException):
     def __init__(self, message):
         self.message = message
 
-
+class ValidatorException(BaseException):
+    pass
 
 #does not maintain state of values checked
 #simply maintains a list of warnings and violations for checked values
@@ -203,6 +220,7 @@ class Filter():
         self.filters["email"] = validators.Email()
         self.filters["password"] = validators.String()
         self.filters["slot"] = CustomValidators.SlotValidator()
+        self.filters["phone"] = CustomValidators.CustomPhoneNumber()
 
     def validate(self, name, value, filter_type, required):
         #exception check here is for Nonetype values

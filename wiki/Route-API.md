@@ -11,23 +11,52 @@ Creates a route with 1 or more communication channels attached
 
 `userId` Id for user that is creating the route (id, required)
 
-`phoneNumbers` Numbers attached to the route (num_list, optional)
+`phoneNumbers` Phone numbers attached to the route (10 digit, not characters other than numbers) (phone_list, optional)
 
 `emails` Emails attached to the route (email_list, optional)
 
 #####Response#####
 
 ~~~~
-{'emails': ['+'],
+{'emails': ['+', '*'],
  'id': '+',
- 'phoneNumbers': ['+'],
+ 'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',
             'end': '+',
             'repeatInterval': '+',
             'slotId': '+',
-            'start': '+'}],
+            'start': '+'},
+           '*'],
  'userId': '+'}
+~~~~
+
+------------
+##[GET] /v1/route/{id}/member/list##
+
+Retrieves a list of members belonging to a specific route
+
+#####Params#####
+`userId` id of user that is requesting the list, only the route owner is allowed here (id, required)
+
+#####Response#####
+
+~~~~
+{'members': [{'memberId': '+', 'userId': '+'}, '*']}
+~~~~
+
+------------
+##[POST] /v1/route/{id}/member##
+
+Joins a user to a specific route
+
+#####Params#####
+`userId` id of user to join route (id, required)
+
+#####Response#####
+
+~~~~
+{'memberId': '+', 'userId': '+'}
 ~~~~
 
 ------------
@@ -39,22 +68,23 @@ Note: updating slots will wipe old slots and replace with new set.
 #####Params#####
 `slots` Access Slot items formatted as { "start": "+", "end": "+", "repeatInterval": "+", "cutoff": "+" } (slot_list, optional)
 
-`phoneNumbers` Numbers attached to the route (num_list, optional)
+`phoneNumbers` Numbers attached to the route (phone_list, optional)
 
 `emails` Emails attached to the route (email_list, optional)
 
 #####Response#####
 
 ~~~~
-{'emails': ['+'],
+{'emails': ['+', '*'],
  'id': '+',
- 'phoneNumbers': ['+'],
+ 'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',
             'end': '+',
             'repeatInterval': '+',
             'slotId': '+',
-            'start': '+'}],
+            'start': '+'},
+           '*'],
  'userId': '+'}
 ~~~~
 
@@ -70,29 +100,16 @@ None
 #####Response#####
 
 ~~~~
-{'emails': ['+'],
+{'emails': ['+', '*'],
  'id': '+',
- 'phoneNumbers': ['+'],
+ 'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',
             'end': '+',
             'repeatInterval': '+',
             'slotId': '+',
-            'start': '+'}],
+            'start': '+'},
+           '*'],
  'userId': '+'}
-~~~~
-
-------------
-##[POST] /v1/route/{id}/join##
-
-Joins a user to a specific route
-
-#####Params#####
-`userId` id of user to join route (id, required)
-
-#####Response#####
-
-~~~~
-{'status': 'success'}
 ~~~~
 

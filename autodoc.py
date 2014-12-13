@@ -138,9 +138,11 @@ def create_docs():
     for route in project_routes:
         if DEBUG:
             print route.name
+        if not hasattr(route, 'name'):
+            continue
         #route name is required
-        if not route.name:
-            raise AutoDocException("All routes must have a name: " + str(route))
+        #if not route.name:
+        #    raise AutoDocException("All routes must have a name: " + str(route))
 
         for name, method in route.handler.__dict__.iteritems():
             if callable(method) and method.__doc__:

@@ -71,7 +71,15 @@ class MessageUtils(object):
 
     @staticmethod
     def is_owner_message(message):
-        return message.find(MessageUtils.OWNER_MESSAGE_IDENTIFIER) == 0
+        return message.find(MessageUtils.OWNER_MESSAGE_IDENTIFIER) > 0
+
+    @staticmethod
+    def strip_country_code_from_number(number):
+        plus_index = number.find("+")
+        if plus_index > -1:
+            return number[plus_index + 2:]
+        else:
+            return number
 
 class BaseUtils(object):
     @staticmethod
@@ -89,6 +97,7 @@ class NamingGenerator(object):
     NOUN_KEY = "nouns"
     ADJ_KEY = "adjectives"
     ANIM_KEY = "animals"
+    TWILIO_KEY = "twilio"
     FILES = {
         "adjectives": "adjectives.txt",
         "animals": "animals.txt",
@@ -109,9 +118,10 @@ class NamingGenerator(object):
             time_seed = int(time.time() * 100) #time in deci-seconds
             adjective = adjectives.get_random_entry(time_seed)
             noun = nouns.get_random_entry(time_seed)
-            cand_route_name = adjective + " " + noun
+            cand_route_name = (adjective + noun).lower().strip()
+            cand_route_display_name = (adjective + noun).strip()
             try:
-                NamingGenerator.create_route(cand_route_name)
+                NamingGenerator.create_route(cand_route_name, cand_route_display_name)
                 return cand_route_name
             except UtilsException:
                 continue
@@ -121,20 +131,24 @@ class NamingGenerator(object):
     @ndb.transactional(retries=10)
     #creates a dummy route entry to reserve the name (subsequent requests will see that it now exists)
     #if the route already exists, throws an exception
-    def create_route(cand_route_name):
+    def create_route(cand_route_name, cand_route_display_name):
         route = models.Route.get_by_id(cand_route_name)
         if route is None:
-            models.Route(id=cand_route_name).put()
+            models.Route(id=cand_route_name, displayName=cand_route_display_name).put()
         else:
             raise UtilsException("route exists for that name")
 
     @staticmethod
-    def get_route_member_name(route_entity):
+    def generate_route_member(route_entity, user_id):
         animals = models.Naming.get_by_id(NamingGenerator.ANIM_KEY)
         animals_length = len(animals.items)
 
+        user_name = models.User.get_display_name_from_id(user_id)
+        if user_name is None:
+            raise UtilsException("could not find user associated with user id")
+
         @ndb.transactional(retries=10)
-        def get_next(animals, animals_length):
+        def get_next():
             created_animals = models.RouteMember.query(ancestor=route_entity.key).fetch()
             created_animals_length = len(created_animals)
 
@@ -146,12 +160,11 @@ class NamingGenerator(object):
             else:
                 append_item = str(multiple)
 
-            animal = animals.items[index] + append_item
-            animal_entry = models.RouteMember(parent=route_entity.key, id=animal)
-            animal_entry.put()
-            return animal
+            member_id = animals.items[index] + append_item
+            member = models.RouteMember.create_entry(route_entity, member_id, user_id, user_name)
+            return member
 
-        return get_next(animals, animals_length)
+        return get_next()
 
     @staticmethod
     # Populates the Naming model with an entry for each item in FILES
@@ -201,7 +214,9 @@ class APIUtils(object):
                 elif isinstance(c_value, list):
                     sub_contract = c_value[0]
                     data_value = data[c_key]
-                    verify_empty_list_cond = data_value != '[]' and data_value != []
+                    #check for empty list, or empty list str representation (from json), or check for wildcard as second
+                    #argument on list indicating that an empty list is ok
+                    verify_empty_list_cond = data_value != '[]' and data_value != [] or c_value[1] == "*"
                     verify_true_action(verify_empty_list_cond, c_key + " is an empty list and it is required")
 
                     if isinstance(sub_contract, dict):
@@ -237,6 +252,7 @@ class APIUtils(object):
             else:
                 verify_true_action(value == "*", "If data doesn't have a key for this nested element, "
                                              "all fields must be wildcard allowed")
+
 
 
 class APIUtilsException(BaseException):

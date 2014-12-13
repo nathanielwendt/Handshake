@@ -49,24 +49,36 @@ class TestNamingGenerator(ConsistencyTest):
 
         self.assertEqual(len(results), len(set(results)))
 
+    ###### Test Member Generation #######
     def test_basic_member(self):
+        models.User(id="user001", name="Darwin Plum").put()
         route_id = NamingGenerator.get_route_id()
         route = models.Route.get_by_id(route_id)
-        member_name = NamingGenerator.get_route_member_name(route)
-        self.assertIsNotNone(member_name)
+        member = NamingGenerator.generate_route_member(route, "user001")
+        self.assertIsNotNone(member)
+        self.assertEqual("Darwin Plum", member.userDisplayName)
+
+    #create route member on user that does not exist should throw exception
+    def test_external_member_invalid(self):
+        models.User(id="user001", name="Darwin Plum").put()
+        route_id = NamingGenerator.get_route_id()
+        route = models.Route.get_by_id(route_id)
+        self.assertRaises(UtilsException, NamingGenerator.generate_route_member, route, "user002")
 
     def test_load_member(self):
+        models.User(id="user001", name="Darwin Plum").put()
         route_id = NamingGenerator.get_route_id()
         route = models.Route.get_by_id(route_id)
-        members = []
-        for i in range(500):
-            member_name = NamingGenerator.get_route_member_name(route)
-            members.append(member_name)
-        self.assertEqual(len(members), len(set(members)))
-        self.assertEqual(len(members), len(route.getMembers()))
+        member_ids = []
+        for i in range(200):
+            member = NamingGenerator.generate_route_member(route, "user001")
+            member_ids.append(member.memberId)
+        self.assertEqual(len(member_ids), len(set(member_ids)))
+        self.assertEqual(len(member_ids), len(route.get_members()))
 
     #control the number of animals available and make sure the enumeration works
     def test_loop_member(self):
+        models.User(id="user001", name="Darwin Plum").put()
         models.Naming.NUM_BINS = 2
         AppEngineTest.set_up_naming(10)
 
@@ -76,12 +88,12 @@ class TestNamingGenerator(ConsistencyTest):
         route_id = NamingGenerator.get_route_id()
         route = models.Route.get_by_id(route_id)
 
-        member_name = None
         for i in range(40):
-            member_name = NamingGenerator.get_route_member_name(route)
-        self.assertEqual(member_name, last_animal + "3")
+            member = NamingGenerator.generate_route_member(route, "user001")
+        self.assertEqual(member.memberId, (last_animal + "3").lower())
 
     def test_contention_member(self):
+        models.User(id="user001", name="Darwin Plum").put()
         #Set up naming again, customized to only have 220 entries to create many collisions in naming
         AppEngineTest.set_up_naming(220)
 
@@ -89,9 +101,9 @@ class TestNamingGenerator(ConsistencyTest):
         route = models.Route.get_by_id(route_id)
 
         def get_route_member_name(results, index, route):
-            member_name = NamingGenerator.get_route_member_name(route)
-            self.assertIsNotNone(member_name)
-            results[index] = member_name
+            member = NamingGenerator.generate_route_member(route, "user001")
+            self.assertIsNotNone(member)
+            results[index] = member.memberId
 
         results = [None] * 200
         count = 0
@@ -108,7 +120,7 @@ class TestNamingGenerator(ConsistencyTest):
                 threads[j].join()
 
         self.assertEqual(len(results), len(set(results)))
-        self.assertEqual(len(results), len(route.getMembers()))
+        self.assertEqual(len(results), len(route.get_members()))
 
 
 class TestContractConforms(AppEngineTest):
@@ -415,6 +427,22 @@ class TestEmailUtils(AppEngineTest):
     def test_get_email_invalid(self):
         sender_field = " Joe < joe@gmail.com"
         self.assertRaises(UtilsException, MessageUtils.get_email_from_sender_field, sender_field)
+
+class TestMessageUtilsGeneral(AppEngineTest):
+    def test_strip_country_code_from_number_basic(self):
+        number = "3503363346"
+        stripped = MessageUtils.strip_country_code_from_number(number)
+        self.assertEqual("3503363346", stripped)
+
+    def test_strip_country_code_from_number_plus(self):
+        number = "+13503363346"
+        stripped = MessageUtils.strip_country_code_from_number(number)
+        self.assertEqual("3503363346", stripped)
+
+    def test_strip_country_code_from_number_empty(self):
+        number = ""
+        stripped = MessageUtils.strip_country_code_from_number(number)
+        self.assertEqual("", stripped)
 
 if __name__ == '__main__':
     unittest.main()

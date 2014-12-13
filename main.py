@@ -18,9 +18,12 @@ from route_handlers import *
 from message_handlers import *
 from user_handlers import *
 from web_handlers import *
+from debug_handlers import *
 
 v1_routes = [
     webapp2.Route(r'/v1/user', handler=UserCreationHandler, name="User-Creation"),
+    webapp2.Route(r'/v1/user/<id:[\w-]+>/notifications',
+                  handler=UserNotificationsHandler, name="User-Notifications"),
     webapp2.Route(r'/v1/user/<id:[\w-]+>', handler=UserHandler, name="User"),
 
     #[App Names]
@@ -37,18 +40,27 @@ v1_routes = [
     #Knit
     #Notch
     webapp2.Route(r'/v1/route', handler=RouteCreationHandler, name="Route-Creation"),
+    webapp2.Route(r'/v1/route/<id:([\w|\W])+>/member/list',
+                  handler=RouteMemberListHandler, name="Route-MemberList"),
+    webapp2.Route(r'/v1/route/<id:([\w|\W])+>/member',
+                  handler=RouteMemberCreationHandler, name="Route-MemberCreation"),
     webapp2.Route(r'/v1/route/<id:([\w|\W])+>', handler=RouteHandler, name="Route"),
-    webapp2.Route(r'/v1/route/<id:([\w|\W])+>/join', handler=RouteJoinHandler, name="Route-Join"),
 
     webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-NativeCreation"),
     webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-SMSCreation"),
     # MessageEmailCreationHandler is called internally
-    webapp2.Route(r'/v1/message/<route_id:([\w|\W])+>/<user_id:([\w|\W])+>/<n:([\w|\W])+>', handler=MessageListHandler, name="Message-List")
+    webapp2.Route(r'/v1/message/<route_id:([\w|\W])+>/<user_id:([\w|\W])+>/<n:([\w|\W])+>',
+                  handler=MessageListHandler, name="Message-List"),
+    MessageEmailCreationHandler.mapping(),
+
+    webapp2.Route(r'/v1/debug', handler=DebugPushNotificationHandler, name="Debug-PushNotification")
 ]
 
 web_routes = [
     webapp2.Route(r'/', handler=WebHomeHandler, name="Web-HomeHandler")
 ]
+
+
 
 routes = v1_routes + web_routes
 app = webapp2.WSGIApplication(routes = routes, debug=True)

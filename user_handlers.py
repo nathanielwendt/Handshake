@@ -1,8 +1,9 @@
 import json
-from handler_utils import APIBaseHandler
+from handler_utils import APIBaseHandler, ValidatorException
 import models
 import view_models
 from models import getUUID, IDTYPE
+from handler_utils import ValidatorException
 
 class UserCreationHandler(APIBaseHandler):
     def post(self):
@@ -22,7 +23,7 @@ class UserCreationHandler(APIBaseHandler):
         }
         try:
             self.check_params_conform(contract)
-        except:
+        except ValidatorException:
             return
 
         data = {
@@ -51,4 +52,30 @@ class UserHandler(APIBaseHandler):
 
         self.set_response_view_model(view_models.User.view_contract())
         self.api_response = view_models.User.form(user)
+        self.send_response()
+
+class UserNotificationsHandler(APIBaseHandler):
+    def post(self, **kwargs):
+        """
+        Registers a user with push notifications
+
+        :param pushRegKey: GCM key obtained from Google
+        """
+        contract = {
+            "pushRegKey": ["id","+"]
+        }
+        try:
+            self.check_params_conform(contract)
+        except ValidatorException:
+            return
+
+        user_id = kwargs["id"]
+        user = models.User.get_by_id(user_id)
+        if user is None:
+            self.abort(422, "Could not find user")
+
+        user.pushRegKey = self.get_param("pushRegKey")
+        user.put()
+
+        self.set_default_success_response()
         self.send_response()

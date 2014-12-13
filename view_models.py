@@ -50,7 +50,7 @@ class Message(object):
     @staticmethod
     def view_contract():
         return {
-            "mesageId": "+",
+            "id": "+",
             "clientUserId": "+",
             "isClient": "+",
             "routeId": "+",
@@ -58,13 +58,13 @@ class Message(object):
         }
 
     @staticmethod
-    def form(message):
+    def form(msg):
         return {
-            "messageId": message.get_id(),
-            "clientUserId": message.clientUserId,
-            "isClient": message.is_client_message,
-            "routeId": message.routeId,
-            "message": message.body
+            "id": msg.get_id(),
+            "clientUserId": msg.clientUserId,
+            "isClient": msg.is_client_message(),
+            "routeId": msg.routeId,
+            "message": msg.body
         }
 
     @staticmethod
@@ -87,17 +87,15 @@ class Message(object):
         }
 
 
-
-
 class Route(object):
     @staticmethod
     def view_contract():
         return {
             "id": "+",
             "userId": "+",
-            "emails": ["+"],
-            "phoneNumbers": ["+"],
-            "slots": [AccessSlot.view_contract()]
+            "emails": ["+", "*"],
+            "phoneNumbers": ["+", "*"],
+            "slots": [AccessSlot.view_contract(), "*"]
         }
 
     @staticmethod
@@ -119,4 +117,34 @@ class Route(object):
             "emails": json.dumps(route.emails),
             "phoneNumbers": json.dumps(route.phoneNumbers),
             "slots": slots
+        }
+
+class RouteMember(object):
+    @staticmethod
+    def view_contract():
+        return {
+            "userId": "+",
+            "memberId": "+"
+        }
+
+    @staticmethod
+    def form(member):
+        return {
+            "userId": member.userId,
+            "memberId": member.memberId
+        }
+
+    @staticmethod
+    def view_list_contract():
+        return {
+            "members": [RouteMember.view_contract(), "*"]
+        }
+
+    @staticmethod
+    def form_list(members):
+        member_list = []
+        for member in members:
+            member_list.append(RouteMember.form(member))
+        return {
+            "members": member_list
         }

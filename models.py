@@ -39,24 +39,36 @@ class CoreModel(ndb.Model):
 #Id's generated automatically by app engine
 class DefaultModel(CoreModel):
     @classmethod
-    def get_by_id(cls, id):
+    def get_by_id(cls, id, parent=None):
         try:
             int(id)
-            return super(DefaultModel, cls).get_by_id(int(id))
+            return super(DefaultModel, cls).get_by_id(int(id), parent)
         except ValueError:
             return None
 
 #Id's generated internally
 class CustomModel(CoreModel):
     @classmethod
-    def get_by_id(cls, id):
-        return super(CustomModel, cls).get_by_id(id)
+    def get_by_id(cls, id, parent=None):
+        return super(CustomModel, cls).get_by_id(id, parent)
 
 class User(CustomModel):
     name = ndb.StringProperty()
     email = ndb.StringProperty()
     emails = ndb.StringProperty(repeated=True)
     phoneNumbers = ndb.StringProperty(repeated=True)
+    pushRegKey = ndb.StringProperty()
+
+    def get_display_name(self):
+        return self.name
+
+    @staticmethod
+    def get_display_name_from_id(user_id):
+        user = models.User.get_by_id(user_id)
+        if user is None:
+            return None
+        else:
+            return user.get_display_name()
 
 class AccessSlot(CustomModel):
     routeId = ndb.StringProperty(indexed=True)
@@ -103,31 +115,68 @@ class Route(CustomModel):
     phoneNumbers = ndb.StringProperty(repeated=True)
 
     #convenience method for checking validity of current time
-    def isNowValid(self):
-        return self.isValid(datetime.datetime.utcnow())
+    def is_now_valid(self):
+        return self.is_valid(datetime.datetime.utcnow())
 
-    def isValid(self, time_ref):
+    def is_valid(self, time_ref):
         access_slots = AccessSlot.query(AccessSlot.routeId == self.get_id())
         for access_slot in access_slots:
             if access_slot.check_and_update_slot(time_ref):
                 return True
         return False
 
-    def getMembers(self):
+    def get_members(self):
         return models.RouteMember.query(ancestor=self.key).fetch()
+
+    @classmethod
+    #override method to provide safety for get operation
+    def get_by_id(cls, id, parent=None):
+        safe_id = id.lower().strip()
+        return super(Route, cls).get_by_id(safe_id, parent)
 
 
 #key name is route_id + member_id
 class RouteMember(CustomModel):
-    pass
+    userId = ndb.StringProperty(indexed=True)
+    userDisplayName = ndb.StringProperty()
+    routeId = ndb.StringProperty()
+    routeDisplayId = ndb.StringProperty()
+    memberId = ndb.StringProperty()
 
     @staticmethod
-    def create_entry(route_id, member_id):
-        return RouteMember(id=str(route_id + member_id))
+    def create_entry(route, member_id, user_id, user_name):
+        route_id = route.get_id()
+        display_id = str(route_id).strip()
+        route_id = str(route_id).lower().strip()
+        member_id = str(member_id).lower().strip()
+        member = RouteMember(parent=route.key, id=route_id + member_id)
+        member.routeId = route_id
+        member.memberId = member_id
+        member.userId = user_id
+        member.userDisplayName = user_name
+        member.routeDisplayId = display_id
+        member.put()
+        return member
 
     @staticmethod
-    def get_entry(route_id, member_id):
-        return RouteMember.get_by_id(str(route_id + member_id))
+    def get_entry(route, member_id):
+        route_id = str(route.get_id()).lower().strip()
+        member_id = str(member_id).lower().strip()
+        return RouteMember.get_by_id(route_id + member_id, parent=route.key)
+
+    @staticmethod
+    def get_user_id(route, member_id):
+        entry = RouteMember.get_entry(route, member_id)
+        return entry.userId
+
+    @staticmethod
+    def get_user_membership(user_id):
+        entries = RouteMember.query(RouteMember.userId == user_id)
+        members = []
+        for entry in entries:
+            members.append(entry.routeDisplayId)
+        return members
+
 
 class ModelException(BaseException):
     pass
@@ -159,10 +208,10 @@ class Message(CustomModel):
     clientUserId = ndb.StringProperty(indexed=True)
     body = ndb.StringProperty()
 
-    def is_client_msg(self):
+    def is_client_message(self):
         return self.clientUserId == self.senderUserId
 
-    def is_owner_msg(self):
+    def is_owner_message(self):
         return self.clientUserId == self.receiverUserId
 
     @staticmethod
@@ -185,8 +234,3 @@ class Message(CustomModel):
     @staticmethod
     def get_route_entries(route_id):
         return Message.query(Message.routeId == route_id)
-
-
-
-class Test(CustomModel):
-    num = ndb.IntegerProperty()
