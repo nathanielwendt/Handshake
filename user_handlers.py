@@ -10,12 +10,14 @@ class UserCreationHandler(APIBaseHandler):
         """
         Creates a new user.
 
+        :param id: unique identifier for user, used to link with external service like Google API
         :param name: name of the user
         :param email: email for user account purposes
         :param emails: emails made available for route creation
         :param phoneNumbers: phone numbers made available for route creation
         """
         contract = {
+            "id": ["id", "+"],
             "name": ["varchar", "+"],
             "email": ["email","+"],
             "emails": ["email_list","+"],
@@ -27,7 +29,7 @@ class UserCreationHandler(APIBaseHandler):
             return
 
         data = {
-            "id": getUUID(IDTYPE.USER),
+            "id": self.get_param("id"),
             "name": self.get_param("name"),
             "email": self.get_param("email"),
             "emails": json.loads(self.get_param("emails")),
@@ -55,7 +57,7 @@ class UserHandler(APIBaseHandler):
         self.send_response()
 
 class UserNotificationsHandler(APIBaseHandler):
-    def post(self, **kwargs):
+    def put(self, **kwargs):
         """
         Registers a user with push notifications
 

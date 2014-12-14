@@ -103,7 +103,7 @@ class APIBaseHandler(webapp2.RequestHandler):
                 object[key] = value
 
     def set_default_success_response(self):
-        self.nom_response = view_models.Default.view_contract()
+        self.api_response = view_models.Default.view_contract()
 
     def send_response(self):
         if self.view_model:

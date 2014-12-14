@@ -7,21 +7,11 @@ SOURCE_TYPE_EMAIL = 2
 SOURCE_VALUE_NATIVE = "Native"
 
 
-def send_message(channel, channel_type, message):
-    if channel_type == SOURCE_TYPE_SMS:
-        SMS.send(channel, message)
-    elif channel_type == SOURCE_TYPE_EMAIL:
-        Email.send(channel, message)
-    elif channel_type == SOURCE_TYPE_NATIVE:
-        GCM.send(channel, message)
-    else:
-        raise MessageException("Message channel type could not be determined")
-
 class Email(object):
     HEADER_EMBED_FIELD = "On-Behalf-Of"
 
     @staticmethod
-    def send(email, message):
+    def send(email, message, subject, behalf_of_header_val):
         pass
 
     #make sure to set On-Behalf-Of on outgoing message

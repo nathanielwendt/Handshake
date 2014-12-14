@@ -1,12 +1,6 @@
-import unittest
-import json
-import urllib
 import models
 from test_utils import AppEngineTest
-import datetime
-from models import getUUID, IDTYPE
 import messenger
-from utils import NamingGenerator
 import view_models
 
 class TestMessageCreationHandler(AppEngineTest):
@@ -25,15 +19,15 @@ class MessengerMock(object):
         MessengerMock.GCM_COUNT = 0
 
     @staticmethod
-    def sms_send_mock(number, message):
+    def sms_send_mock(*args):
         MessengerMock.SMS_COUNT += 1
 
     @staticmethod
-    def email_send_mock(email, message):
+    def email_send_mock(*args):
         MessengerMock.EMAIL_COUNT += 1
 
     @staticmethod
-    def gcm_send_mock(reg_key, message):
+    def gcm_send_mock(*args):
         MessengerMock.GCM_COUNT += 1
 
     @staticmethod
@@ -58,10 +52,10 @@ class TestMessageNativeCreationHandler(AppEngineTest):
         MessengerMock.make_route_open()
         self.endpoint = "/v1/message/native"
 
-        self.owner = models.User(id="user001", name="Nate Dogg")
+        self.owner = models.User(id="user001", name="Nate Dogg", pushRegKey="pushuser001")
         self.owner.put()
 
-        self.client = models.User(id="user002", name="Chief Brent")
+        self.client = models.User(id="user002", name="Chief Brent", pushRegKey="pushuser002")
         self.client.put()
 
         self.route = models.Route(id="greencow")
@@ -87,12 +81,13 @@ class TestMessageNativeCreationHandler(AppEngineTest):
 
         self.assertEqual(2, MessengerMock.EMAIL_COUNT)
         self.assertEqual(1, MessengerMock.SMS_COUNT)
+        self.assertEqual(1, MessengerMock.GCM_COUNT)
 
         message = models.Message.query().get()
         self.assertIsNotNone(message)
         self.assertEqual("greencow", message.routeId)
         self.assertEqual(messenger.SOURCE_TYPE_NATIVE, message.sourceType)
-        self.assertEqual(messenger.SOURCE_VALUE_NATIVE, message.source)
+        self.assertEqual("pushuser002", message.source)
         self.assertEqual("user002", message.senderUserId)
         self.assertEqual("user001", message.receiverUserId)
         self.assertEqual("user002", message.clientUserId)
@@ -147,7 +142,7 @@ class TestMessageNativeCreationHandler(AppEngineTest):
         self.assertIsNotNone(message)
         self.assertEqual("greencow", message.routeId)
         self.assertEqual(messenger.SOURCE_TYPE_NATIVE, message.sourceType)
-        self.assertEqual(messenger.SOURCE_VALUE_NATIVE, message.source)
+        self.assertEqual("pushuser001", message.source)
         self.assertEqual("user001", message.senderUserId)
         self.assertEqual("user002", message.receiverUserId)
         self.assertEqual("user002", message.clientUserId)
@@ -237,4 +232,5 @@ class TestMessageListHandler(AppEngineTest):
     def setUp(self):
         super(TestMessageListHandler, self).setUp()
         self.endpoint = "v1/message/"
+
 

@@ -37,17 +37,12 @@ class RouteCreationHandler(APIBaseHandler):
         if emails is None and phone_numbers is None:
             self.abort(422, "need at least one phone number or email communication channel")
 
-
         route_id = NamingGenerator.get_route_id()
-        route_data = {
-            "id": route_id,
-            "userId": user_id,
-            "emails": json.loads(emails),
-            "phoneNumbers": json.loads(phone_numbers)
-        }
-        route = models.Route(**route_data)
+        route = models.Route.get_by_id(route_id)
+        route.userId = user_id
+        route.emails = json.loads(emails)
+        route.phoneNumbers = json.loads(phone_numbers)
         route.put()
-
 
         slots = json.loads(self.get_param("slots"))
         access_slot_list = []
@@ -154,37 +149,6 @@ class RouteHandler(APIBaseHandler):
         self.api_response = view_models.Route.form(route, access_slot_list)
         self.send_response()
 
-
-class RouteMemberCreationHandler(APIBaseHandler):
-    def post(self, **kwargs):
-        """
-        Joins a user to a specific route
-
-        :param userId: id of user to join route
-        """
-        contract = {
-            "userId": ["id", "+"]
-        }
-        try:
-            self.check_params_conform(contract)
-        except ValidatorException:
-            return
-
-        user_id = self.get_param("userId")
-        route_id = kwargs["id"]
-        route = models.Route.get_by_id(route_id)
-        if route is None:
-            self.abort(422, "could not find route to join")
-
-        if route.userId == user_id:
-            self.abort(422, "route owner cannot join own route")
-
-        member = NamingGenerator.generate_route_member(route, user_id)
-
-        self.set_response_view_model(view_models.RouteMember.view_contract())
-        self.api_response = view_models.RouteMember.form(member)
-        self.send_response()
-
 class RouteMemberListHandler(APIBaseHandler):
     def get(self, **kwargs):
         """
@@ -214,4 +178,66 @@ class RouteMemberListHandler(APIBaseHandler):
         self.api_response = view_models.RouteMember.form_list(members)
         self.send_response()
 
+class RouteMemberCreationHandler(APIBaseHandler):
+    def post(self, **kwargs):
+        """
+        Joins a user to a specific route
 
+        :param userId: id of user to join route
+        """
+        contract = {
+            "userId": ["id", "+"]
+        }
+        try:
+            self.check_params_conform(contract)
+        except ValidatorException:
+            return
+
+        user_id = self.get_param("userId")
+        route_id = kwargs["id"]
+        route = models.Route.get_by_id(route_id)
+        if route is None:
+            self.abort(422, "could not find route to join")
+
+        existing_member = models.RouteMember.get_user_entry(route, user_id)
+        if existing_member is not None:
+            self.abort(422, "user has already joined route")
+
+        if route.userId == user_id:
+            self.abort(422, "route owner cannot join own route")
+
+        member = NamingGenerator.generate_route_member(route, user_id)
+
+        self.set_response_view_model(view_models.RouteMember.view_contract())
+        self.api_response = view_models.RouteMember.form(member)
+        self.send_response()
+
+class RouteListHandler(APIBaseHandler):
+    def get(self):
+        """
+        Retrieves all routes for a given user (both created and joined routes)
+
+        :param userId: Id for user for which to return routes
+        """
+        contract = {
+            "userId": ["id", "+"]
+        }
+
+        user_id = self.get_param("userId")
+        user = models.User.get_by_id(user_id)
+        if user is None:
+            self.abort(422, "User does not exist")
+
+        joined_routes = models.RouteMember.get_user_membership(user_id)
+        created_routes = models.Route.query(models.Route.userId == user_id)
+
+        all_routes = []
+        for joined_route in joined_routes:
+            all_routes.append(joined_route)
+
+        for created_route in created_routes:
+            all_routes.append(created_route.displayName)
+
+        self.set_response_view_model(view_models.Route.view_list_contract())
+        self.api_response = view_models.Route.form_list(all_routes)
+        self.send_response()

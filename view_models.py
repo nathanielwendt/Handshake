@@ -12,7 +12,7 @@ class User(object):
     @staticmethod
     def view_contract():
         return {
-            "userId": "+",
+            "id": "+",
             "name": "+",
             "email": "+",
             "emails": "+",
@@ -22,7 +22,7 @@ class User(object):
     @staticmethod
     def form(user):
         return {
-            "userId": user.get_id(),
+            "id": user.get_id(),
             "name": user.name,
             "email": user.email,
             "emails": json.dumps(user.emails),
@@ -117,6 +117,18 @@ class Route(object):
             "emails": json.dumps(route.emails),
             "phoneNumbers": json.dumps(route.phoneNumbers),
             "slots": slots
+        }
+
+    @staticmethod
+    def view_list_contract():
+        return {
+            "routes": ["+", "*"]
+        }
+
+    @staticmethod
+    def form_list(route_ids):
+        return {
+            "routes": route_ids
         }
 
 class RouteMember(object):

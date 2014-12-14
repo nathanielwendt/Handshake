@@ -330,10 +330,9 @@ class TestRouteMemberListHandler(AppEngineTest):
         super(TestRouteMemberListHandler, self).setUp()
         self.endpoint = "/v1/route/"
         self.route = models.Route(id="cavalierbro", userId="user001")
+        self.route.put()
         items = ["dog","cat","duck","platypus"]
         models.Naming(id=NamingGenerator.ANIM_KEY, items=items).put()
-
-        self.route.put()
 
     def test_basic_empty(self):
         self.endpoint += self.route.get_id() + "/member/list"
@@ -370,5 +369,84 @@ class TestRouteMemberListHandler(AppEngineTest):
     def test_invalid_non_owner_query(self):
         self.endpoint += self.route.get_id() + "/member/list"
         self.params["userId"] = self.INVALID_ID
+        self.send()
+        self.expect_resp_code(422)
+
+
+class TestRouteMemberCreationHandler(AppEngineTest):
+    def setUp(self):
+        super(TestRouteMemberCreationHandler, self).setUp()
+        self.endpoint = "/v1/route/"
+
+        self.owner_user = models.User(id="user001", name="Tim Ricman")
+        self.owner_user.put()
+        self.client_user = models.User(id="user002", name="Rickity Cricket")
+        self.client_user.put()
+
+        self.route = models.Route(id="cavalierbro", userId="user001")
+        self.route.put()
+        items = ["dog","cat","duck","platypus"]
+        models.Naming(id=NamingGenerator.ANIM_KEY, items=items).put()
+
+    def test_basic(self):
+        self.method = 'POST'
+        self.endpoint += self.route.get_id() + "/member"
+        self.params["userId"] = "user002"
+        self.send()
+        self.expect_resp_code(200)
+        self.expect_resp_conforms(view_models.RouteMember.view_contract())
+        self.expect_resp_param("userId", "user002")
+        self.expect_resp_param("memberId", "dog")
+
+    def test_invalid_route(self):
+        self.method = 'POST'
+        self.endpoint += self.INVALID_ID + "/member"
+        self.params["userId"] = "user002"
+        self.send()
+        self.expect_resp_code(422)
+
+    def test_invalid_already_joined_route(self):
+        self.method = 'POST'
+        self.endpoint += self.route.get_id() + "/member"
+        self.params["userId"] = "user002"
+        self.send()
+        self.expect_resp_code(200)
+        self.send()
+        self.expect_resp_code(422)
+
+    def test_invalid_join_own_route(self):
+        self.method = 'POST'
+        self.endpoint += self.route.get_id() + "/member"
+        self.params["userId"] = "user001"
+        self.send()
+        self.expect_resp_code(422)
+
+class TestRouteListHandler(AppEngineTest):
+    def setUp(self):
+        super(TestRouteListHandler, self).setUp()
+        self.endpoint = "/v1/route/list"
+        self.user = models.User(id="user001", name="Tim Ricman")
+        self.user.put()
+        items = ["dog","cat","duck","platypus"]
+        models.Naming(id=NamingGenerator.ANIM_KEY, items=items).put()
+
+    def test_basic(self):
+        self.method = "GET"
+        models.Route(id="cavalierbro", userId="user001", displayName="CavalierBro").put()
+        models.Route(id="chiefdog", userId="user001", displayName="ChiefDog").put()
+        route1 = models.Route(id="plainjane", userId="user002", displayName="PlainJane")
+        route1.put()
+
+        NamingGenerator.generate_route_member(route1, "user001")
+
+        self.params["userId"] = "user001"
+        self.send()
+        self.expect_resp_code(200)
+        self.expect_resp_conforms(view_models.Route.view_list_contract())
+        self.assertEqual({"PlainJane", "CavalierBro", "ChiefDog"}, set(self.response_data["routes"]))
+
+    def test_invalid_user(self):
+        self.method = "GET"
+        self.params["userId"] = "user002"
         self.send()
         self.expect_resp_code(422)

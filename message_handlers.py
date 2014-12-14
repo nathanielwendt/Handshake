@@ -6,7 +6,7 @@ from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from messenger import Email, MessageException
 import view_models
 from google.appengine.datastore.datastore_query import Cursor
-
+import json
 
 def create_client_message(source, source_type, sender_user_id, message_body, route_id):
     route = models.Route.get_by_id(route_id)
@@ -28,11 +28,22 @@ def create_client_message(source, source_type, sender_user_id, message_body, rou
     message = models.Message(**message_data)
     message.put()
 
+    route_member = models.RouteMember.get_user_entry(route, sender_user_id)
     for outgoing_email in route.emails:
-        messenger.send_message(outgoing_email, messenger.SOURCE_TYPE_EMAIL, message_body)
+        header = sender_user_id
+        subject = "HandshakeMessage: " + route_member.memberId + "@" + \
+                  route_member.routeDisplayId + " " +\
+                  route_member.userDisplayName + "\n"
+        messenger.Email.send(outgoing_email, message, subject, header)
 
     for outgoing_phone_number in route.phoneNumbers:
-        messenger.send_message(outgoing_phone_number, messenger.SOURCE_TYPE_SMS, message_body)
+        message_sms = route_member.memberId + "@" + route_member.routeDisplayId + " " +\
+              route_member.userDisplayName + "\n" + message_body
+        messenger.SMS.send(outgoing_phone_number, message_sms)
+
+    receiver_user = models.User.get_by_id(route.userId)
+    message_json = json.dumps(view_models.Message.form(message))
+    messenger.GCM.send(receiver_user.pushRegKey, message_json)
 
     return message
 
@@ -57,7 +68,21 @@ def create_owner_message(source, source_type, sender_user_id, message_body, clie
     }
     message = models.Message(**message_data)
     message.put()
-    messenger.send_message(last_message.source, last_message.sourceType, message_body)
+
+    route = models.Route.get_by_id(route_id)
+
+    if last_message.sourceType == messenger.SOURCE_TYPE_EMAIL:
+        header = sender_user_id
+        subject = "HandshakeMessage: " + route.displayName
+        messenger.Email.send(last_message.source, message_body, subject, header)
+    elif last_message.sourceType == messenger.SOURCE_TYPE_SMS:
+        message_sms = "#" + route.displayName + "\n" + message_body
+        messenger.SMS.send(last_message.source, message_sms)
+    elif last_message.sourceType == messenger.SOURCE_TYPE_NATIVE:
+        message_json = json.dumps(view_models.Message.form(message))
+        messenger.GCM.send(last_message.source, message_json)
+    else:
+        raise MessageException("previous message has an invalid source type")
 
     return message
 
@@ -178,21 +203,21 @@ class MessageNativeCreationHandler(APIBaseHandler):
             self.abort(422, "could not find user by that username")
 
         source_type = messenger.SOURCE_TYPE_NATIVE
-        source = messenger.SOURCE_VALUE_NATIVE
+        source = sender_user.pushRegKey
 
         message = None
         #message client -> owner
         if receiver_user_id is None:
             try:
                 message = create_client_message(source, source_type, sender_user_id,
-                                  message_body, route_id)
+                                                message_body, route_id)
             except MessageException, e:
                 self.abort(422, e)
         #message owner -> client
         else:
             try:
                 message = create_owner_message(source, source_type, sender_user_id,
-                                     message_body,receiver_user_id, route_id)
+                                                message_body,receiver_user_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
 

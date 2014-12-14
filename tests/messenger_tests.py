@@ -10,6 +10,6 @@ class TestSMS(AppEngineTest):
         self.endpoint = "/v1/message/sms"
         self.method = 'POST'
         self.params["Body"] = "dog@RouteName lkeflkef"
-        self.params["From"] = "+3603036634"
+        self.params["From"] = "3603036634"
         self.send()
         self.expect_resp_code(200)

@@ -44,6 +44,7 @@ v1_routes = [
                   handler=RouteMemberListHandler, name="Route-MemberList"),
     webapp2.Route(r'/v1/route/<id:([\w|\W])+>/member',
                   handler=RouteMemberCreationHandler, name="Route-MemberCreation"),
+    webapp2.Route(r'/v1/route/list', handler=RouteListHandler, name="Route-List"),
     webapp2.Route(r'/v1/route/<id:([\w|\W])+>', handler=RouteHandler, name="Route"),
 
     webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-NativeCreation"),

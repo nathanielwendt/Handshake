@@ -7,10 +7,8 @@ import random
 import uuid
 
 class IDTYPE():
-    USER = "user"
     COUNTER = "count"
     ACCESS_SLOT = "accsl"
-    ROUTE = "route"
     MESSAGE = "msg"
 
 def getUUID(type):
@@ -109,7 +107,7 @@ class AccessSlot(CustomModel):
 
 #key id is route name underscore
 class Route(CustomModel):
-    userId = ndb.StringProperty()
+    userId = ndb.StringProperty(indexed=True)
     displayName = ndb.StringProperty() #first letter capitalized
     emails = ndb.StringProperty(repeated=True)
     phoneNumbers = ndb.StringProperty(repeated=True)
@@ -146,7 +144,7 @@ class RouteMember(CustomModel):
     @staticmethod
     def create_entry(route, member_id, user_id, user_name):
         route_id = route.get_id()
-        display_id = str(route_id).strip()
+        #display_id = str(route_id).strip()
         route_id = str(route_id).lower().strip()
         member_id = str(member_id).lower().strip()
         member = RouteMember(parent=route.key, id=route_id + member_id)
@@ -154,7 +152,7 @@ class RouteMember(CustomModel):
         member.memberId = member_id
         member.userId = user_id
         member.userDisplayName = user_name
-        member.routeDisplayId = display_id
+        member.routeDisplayId =route.displayName
         member.put()
         return member
 
@@ -168,6 +166,12 @@ class RouteMember(CustomModel):
     def get_user_id(route, member_id):
         entry = RouteMember.get_entry(route, member_id)
         return entry.userId
+
+    @staticmethod
+    def get_user_entry(route, user_id):
+        route_id = str(route.get_id()).lower().strip()
+        return RouteMember.query(RouteMember.routeId == route_id)\
+                          .filter(RouteMember.userId == user_id).get()
 
     @staticmethod
     def get_user_membership(user_id):
