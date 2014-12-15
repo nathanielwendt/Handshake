@@ -163,11 +163,14 @@ class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
         except UtilsException, e:
              self.abort(200, e)
         #email_sender = mail_message.sender
+        print email_sender
 
         #client_id = MessageUtils.get_header_from_message(mail_message.original)
         html_bodies = mail_message.bodies('text/html')
         for content_type, body in html_bodies:
             email_body = MessageUtils.strip_html(body.decode())
+
+        print email_body
 
         sender_user = models.User.query(models.User.emails == email_sender).get()
         if sender_user is None:
@@ -188,7 +191,8 @@ class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
         # owner message
         elif MessageUtils.is_owner_message(mail_message.subject):
             #terribly inefficient to do all of this lookup. Need better way
-            member_id, route_id = MessageUtils.split_owner_subject(mail_message.subject)[1]
+            print "owner message"
+            member_id, route_id = MessageUtils.split_owner_subject(mail_message.subject)
             route = models.Route.get_by_id(route_id)
             client_id = models.RouteMember.get_user_entry(route, member_id)
             try:
