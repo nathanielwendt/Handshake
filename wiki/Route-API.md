@@ -72,7 +72,14 @@ Retrieves all routes for a given user (both created and joined routes)
 #####Response#####
 
 ~~~~
-{'routes': ['+', '*']}
+{'routes': [{'displayName': '+',
+             'emails': ['+', '*'],
+             'id': '+',
+             'open': '+',
+             'phoneNumbers': ['+', '*'],
+             'slots': '*',
+             'userId': '+'},
+            '*']}
 ~~~~
 
 ------------

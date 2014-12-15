@@ -89,6 +89,30 @@ class MessageUtils(object):
         headers = parser.parsestr(message.as_string())
         return headers.get(messenger.Email.HEADER_EMBED_FIELD)
 
+    @staticmethod
+    def split_owner_subject(message_subject):
+        portions = message_subject.split(":")
+        member, route_id, message = MessageUtils.split_owner_message(portions[2])
+        return member, route_id
+
+    @staticmethod
+    def strip_html(content):
+        tag = False
+        quote = False
+        out = ""
+
+        for c in content:
+                if c == '<' and not quote:
+                    tag = True
+                elif c == '>' and not quote:
+                    tag = False
+                elif (c == '"' or c == "'") and tag:
+                    quote = not quote
+                elif not tag:
+                    out = out + c
+
+        return out
+
 class BaseUtils(object):
     @staticmethod
     def datetime_to_epoch(dt):

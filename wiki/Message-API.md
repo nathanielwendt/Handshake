@@ -13,6 +13,7 @@ Retrieves a list of messages as a back and forth between a route owner and singl
 ~~~~
 {'cursor': '*',
  'messages': [{'clientUserId': '+',
+               'created': '+',
                'id': '+',
                'isClient': '+',
                'message': '+',
@@ -38,6 +39,7 @@ Creates a message from the native app.
 
 ~~~~
 {'clientUserId': '+',
+ 'created': '+',
  'id': '+',
  'isClient': '+',
  'message': '+',

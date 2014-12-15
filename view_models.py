@@ -25,8 +25,8 @@ class User(object):
             "id": user.get_id(),
             "name": user.name,
             "email": user.email,
-            "emails": json.dumps(user.emails),
-            "phoneNumbers": json.dumps(user.phoneNumbers)
+            "emails": user.emails,
+            "phoneNumbers": user.phoneNumbers
         }
 
 class AccessSlot(object):
@@ -55,6 +55,7 @@ class Message(object):
             "isClient": "+",
             "routeId": "+",
             "message": "+",
+            "created": "+",
         }
 
     @staticmethod
@@ -64,13 +65,14 @@ class Message(object):
             "clientUserId": msg.clientUserId,
             "isClient": msg.is_client_message(),
             "routeId": msg.routeId,
-            "message": msg.body
+            "message": msg.body,
+            "created": msg.created
         }
 
     @staticmethod
     def view_list_contract():
         return {
-            "messages": [Message.view_contract()],
+            "messages": [Message.view_contract(), "*"],
             "more": "+",
             "cursor": "*"
         }
@@ -80,10 +82,14 @@ class Message(object):
         message_list = []
         for message in messages:
             message_list.append(Message.form(message))
+        if cursor:
+            cursor_str = cursor.urlsafe()
+        else:
+            cursor_str = ""
         return {
             "messages": message_list,
             "more": more,
-            "cursor": cursor.urlsafe()
+            "cursor": cursor_str
         }
 
 
@@ -116,8 +122,8 @@ class Route(object):
         return {
             "id": route.get_id(),
             "userId": route.userId,
-            "emails": json.dumps(route.emails),
-            "phoneNumbers": json.dumps(route.phoneNumbers),
+            "emails": route.emails,
+            "phoneNumbers": route.phoneNumbers,
             "open": route.is_now_valid(),
             "displayName": route.displayName,
             "slots": slots
@@ -125,8 +131,10 @@ class Route(object):
 
     @staticmethod
     def view_list_contract():
+        view_contract = Route.view_contract()
+        view_contract["slots"] = "*"
         return {
-            "routes": ["+", "*"]
+            "routes": [view_contract, "*"]
         }
 
     @staticmethod

@@ -10,18 +10,19 @@ SOURCE_VALUE_NATIVE = "Native"
 
 class Email(object):
     HEADER_EMBED_FIELD = "On-Behalf-Of"
-    APP_SENDER = "handshake"
+    APP_SENDER = "Handshake"
     APP_SENDER += "@handshake-app"
     APP_SENDER += ".appspotmail.com"
 
     @staticmethod
     def send(email, message, subject, behalf_of_header_val):
-        mail.send_mail(sender=Email.APP_SENDER,
-               to=email,
-               #to="Albert Johnson <Albert.Johnson@example.com>",
-               subject=subject,
-               body=message,
-               headers={Email.HEADER_EMBED_FIELD: behalf_of_header_val})
+        print subject + " " + message
+#         mail.send_mail(sender=Email.APP_SENDER,
+#                to=email,
+#                #to="Albert Johnson <Albert.Johnson@example.com>",
+#                subject=subject,
+#                body=message,
+#                headers={Email.HEADER_EMBED_FIELD: behalf_of_header_val})
 
     #make sure to set On-Behalf-Of on outgoing message
 

@@ -2,7 +2,7 @@ indexes:
 
 - kind: Message
   properties:
-  - name: clientUserId
   - name: routeId
+  - name: senderUserId
   - name: created
     direction: desc

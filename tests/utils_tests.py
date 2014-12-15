@@ -414,6 +414,12 @@ class TestSplitMessage(AppEngineTest):
         self.assertEqual("@yikes El3k g", message)
 
 class TestEmailUtils(AppEngineTest):
+    def split_owner_subject_valid(self):
+        subject = "Re: HandshakeMessage: guanaco@SoftDill [John Stone]"
+        member, route_id = MessageUtils.split_owner_subject(subject)
+        self.assertEqual("guanaco", member)
+        self.assertEqual("softdill", route_id)
+
     def test_get_email_valid(self):
         sender_field = "Joe <joe@gmail.com>"
         sender = MessageUtils.get_email_from_sender_field(sender_field)

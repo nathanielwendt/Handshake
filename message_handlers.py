@@ -51,7 +51,7 @@ def create_client_message(source, source_type, sender_user_id, message_body, rou
 
 def create_owner_message(source, source_type, sender_user_id, message_body, client_id, route_id):
     prev_messages, next_cursor, more = models.Message.query(models.Message.routeId == route_id)\
-                                                .filter(models.Message.clientUserId == client_id)\
+                                                .filter(models.Message.senderUserId == client_id)\
                                                 .order(-models.Message.created)\
                                                 .fetch_page(1)
 
@@ -149,39 +149,48 @@ class MessageSMSCreationHandler(APIBaseHandler):
 
 class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
     def receive(self, mail_message):
-        # try:
-        #      email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
-        # except UtilsException, e:
-        #      self.abort(422, e)
-        # #email_sender = mail_message.sender
-        #
-        # print mail_
-        #
-        # client_id = MessageUtils.get_header_from_message(mail_message.original)
-        # email_body = mail_message.body
-        #
-        # sender_user = models.User.query(models.User.emails == email_sender).get()
-        # if sender_user is None:
-        #     self.abort(422, "Could not find user from sender")
-        #
-        # # client message
-        # if client_id is None or client_id == "":
-        #     #add space to format as client message
-        #     route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
-        #     try:
-        #         create_client_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
-        #                               sender_user.get_id(),email_body,route_id)
-        #     except MessageException, e:
-        #         self.abort(422, e)
-        # # owner message
-        # else:
-        #     #add space to format as owner message
-        #     route_id = MessageUtils.split_owner_message(mail_message.subject + " ")[1]
-        #     try:
-        #         create_owner_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
-        #                              sender_user.get_id(), email_body, client_id, route_id)
-        #     except MessageException, e:
-        #         self.abort(422, e)
+        pass
+        try:
+             email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
+        except UtilsException, e:
+             self.abort(200, e)
+        #email_sender = mail_message.sender
+
+        #client_id = MessageUtils.get_header_from_message(mail_message.original)
+        html_bodies = mail_message.bodies('text/html')
+        for content_type, body in html_bodies:
+            email_body = MessageUtils.strip_html(body.decode())
+
+        sender_user = models.User.query(models.User.emails == email_sender).get()
+        if sender_user is None:
+            self.abort(200, "Could not find user from sender")
+
+        # client message
+        if MessageUtils.is_client_message(mail_message.subject):
+            #add space to format as client message
+            route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
+            print route_id
+            try:
+                create_client_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+                                      sender_user.get_id(),email_body,route_id)
+            except MessageException, e:
+                self.abort(200, e)
+        # owner message
+        elif MessageUtils.is_owner_message(mail_message.subject):
+            #terribly inefficient to do all of this lookup. Need better way
+            member_id, route_id = MessageUtils.split_owner_subject(mail_message.subject)[1]
+            route = models.Route.get_by_id(route_id)
+            client_id = models.RouteMember.get_user_entry(route, member_id)
+            try:
+                create_owner_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+                                     sender_user.get_id(), email_body, client_id, route_id)
+            except MessageException, e:
+                self.abort(200, e)
+        else:
+            self.abort(200, "Could not find message type in subject")
+
+        self.set_default_success_response()
+        self.send_response()
 
 
 class MessageNativeCreationHandler(APIBaseHandler):
@@ -253,7 +262,7 @@ class MessageListHandler(APIBaseHandler):
         except ValidatorException:
             return
 
-        route_id = kwargs["route_id"]
+        route_id = kwargs["route_id"].lower()
         client_id = kwargs["user_id"]
         num_to_fetch = int(kwargs["n"])
 
