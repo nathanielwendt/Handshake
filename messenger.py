@@ -1,5 +1,6 @@
 from lib.twilio.rest import TwilioRestClient
 import urllib, urllib2
+from google.appengine.api import mail
 
 SOURCE_TYPE_SMS = 0
 SOURCE_TYPE_NATIVE = 1
@@ -9,10 +10,16 @@ SOURCE_VALUE_NATIVE = "Native"
 
 class Email(object):
     HEADER_EMBED_FIELD = "On-Behalf-Of"
+    APP_SENDER = "string@handshake-app.appspotmail.com"
 
     @staticmethod
     def send(email, message, subject, behalf_of_header_val):
-        pass
+        mail.send_mail(sender=Email.APP_SENDER,
+               to=email,
+               #to="Albert Johnson <Albert.Johnson@example.com>",
+               subject=subject,
+               body=message,
+               headers={Email.HEADER_EMBED_FIELD: behalf_of_header_val})
 
     #make sure to set On-Behalf-Of on outgoing message
 

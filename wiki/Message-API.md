@@ -1,6 +1,26 @@
 # Message API 
 
 ------------
+##[GET] /v1/message/{route_id}/{user_id}/{n}##
+
+Retrieves a list of messages as a back and forth between a route owner and single client
+
+#####Params#####
+`cursor` query cursor to resume querying position (id, optional)
+
+#####Response#####
+
+~~~~
+{'cursor': '*',
+ 'messages': [{'clientUserId': '+',
+               'id': '+',
+               'isClient': '+',
+               'message': '+',
+               'routeId': '+'}],
+ 'more': '+'}
+~~~~
+
+------------
 ##[POST] /v1/message/native##
 
 Creates a message from the native app.
@@ -38,25 +58,5 @@ Creates a message from an sms message
 
 ~~~~
 {'status': 'success'}
-~~~~
-
-------------
-##[GET] /v1/message/{route_id}/{user_id}/{n}##
-
-Retrieves a list of messages as a back and forth between a route owner and single client
-
-#####Params#####
-`cursor` query cursor to resume querying position (id, optional)
-
-#####Response#####
-
-~~~~
-{'cursor': '*',
- 'messages': [{'clientUserId': '+',
-               'id': '+',
-               'isClient': '+',
-               'message': '+',
-               'routeId': '+'}],
- 'more': '+'}
 ~~~~
 

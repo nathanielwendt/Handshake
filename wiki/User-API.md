@@ -6,26 +6,28 @@
 Creates a new user.
 
 #####Params#####
-`email` email for user account purposes (email, required)
+`name` name of the user (varchar, required)
 
 `phoneNumbers` phone numbers made available for route creation (num_list, required)
 
-`name` name of the user (varchar, required)
+`email` email for user account purposes (email, required)
 
 `emails` emails made available for route creation (email_list, required)
+
+`id` unique identifier for user, used to link with external service like Google API (id, required)
 
 #####Response#####
 
 ~~~~
 {'email': '+',
  'emails': '+',
+ 'id': '+',
  'name': '+',
- 'phoneNumbers': '+',
- 'userId': '+'}
+ 'phoneNumbers': '+'}
 ~~~~
 
 ------------
-##[POST] /v1/user/{id}/notifications##
+##[PUT] /v1/user/{id}/notifications##
 
 Registers a user with push notifications
 
@@ -52,8 +54,8 @@ None
 ~~~~
 {'email': '+',
  'emails': '+',
+ 'id': '+',
  'name': '+',
- 'phoneNumbers': '+',
- 'userId': '+'}
+ 'phoneNumbers': '+'}
 ~~~~
 

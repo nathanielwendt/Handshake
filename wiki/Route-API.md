@@ -60,6 +60,20 @@ Joins a user to a specific route
 ~~~~
 
 ------------
+##[GET] /v1/route/list##
+
+Retrieves all routes for a given user (both created and joined routes)
+
+#####Params#####
+`userId` Id for user for which to return routes (id, required)
+
+#####Response#####
+
+~~~~
+{'routes': ['+', '*']}
+~~~~
+
+------------
 ##[PUT] /v1/route/{id}##
 
 Updates route parameters.

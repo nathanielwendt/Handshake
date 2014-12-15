@@ -47,11 +47,12 @@ v1_routes = [
     webapp2.Route(r'/v1/route/list', handler=RouteListHandler, name="Route-List"),
     webapp2.Route(r'/v1/route/<id:([\w|\W])+>', handler=RouteHandler, name="Route"),
 
+    webapp2.Route(r'/v1/message/<route_id:([\w|\W])+>/<user_id:[\w-]+>/<n:[0-9]+>',
+                  handler=MessageListHandler, name="Message-List"),
     webapp2.Route(r'/v1/message/native', handler=MessageNativeCreationHandler, name="Message-NativeCreation"),
     webapp2.Route(r'/v1/message/sms', handler=MessageSMSCreationHandler, name="Message-SMSCreation"),
     # MessageEmailCreationHandler is called internally
-    webapp2.Route(r'/v1/message/<route_id:([\w|\W])+>/<user_id:([\w|\W])+>/<n:([\w|\W])+>',
-                  handler=MessageListHandler, name="Message-List"),
+
     MessageEmailCreationHandler.mapping(),
 
     webapp2.Route(r'/v1/debug', handler=DebugPushNotificationHandler, name="Debug-PushNotification")

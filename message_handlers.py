@@ -8,6 +8,7 @@ import view_models
 from google.appengine.datastore.datastore_query import Cursor
 import json
 
+
 def create_client_message(source, source_type, sender_user_id, message_body, route_id):
     route = models.Route.get_by_id(route_id)
     if route is None:
@@ -32,9 +33,9 @@ def create_client_message(source, source_type, sender_user_id, message_body, rou
     for outgoing_email in route.emails:
         header = sender_user_id
         subject = "HandshakeMessage: " + route_member.memberId + "@" + \
-                  route_member.routeDisplayId + " " +\
-                  route_member.userDisplayName + "\n"
-        messenger.Email.send(outgoing_email, message, subject, header)
+                  route_member.routeDisplayId + " " + \
+                  "[" + route_member.userDisplayName + "]" "\n"
+        messenger.Email.send(outgoing_email, message_body, subject, header)
 
     for outgoing_phone_number in route.phoneNumbers:
         message_sms = route_member.memberId + "@" + route_member.routeDisplayId + " " +\
@@ -70,6 +71,8 @@ def create_owner_message(source, source_type, sender_user_id, message_body, clie
     message.put()
 
     route = models.Route.get_by_id(route_id)
+    if route is None:
+        raise MessageException("could not find route for message")
 
     if last_message.sourceType == messenger.SOURCE_TYPE_EMAIL:
         header = sender_user_id
@@ -99,7 +102,6 @@ class MessageSMSCreationHandler(APIBaseHandler):
             "Body": ["varchar","+"],
             "From": ["phone","+"]
         }
-        print self.request.params
         try:
             self.check_params_conform(contract)
         except ValidatorException:
@@ -109,35 +111,36 @@ class MessageSMSCreationHandler(APIBaseHandler):
         phone_number = self.get_param("From")
         source_type = messenger.SOURCE_TYPE_SMS
 
+        sender_user = models.User.query(models.User.phoneNumbers == phone_number).get()
+        if sender_user is None:
+            self.abort(422, "Could not find a user associated with that number")
+
         if MessageUtils.is_client_message(message_raw):
-            print "message senindg client"
             try:
-                route_name, body = MessageUtils.split_client_message(message_raw)
+                route_id, body = MessageUtils.split_client_message(message_raw)
             except UtilsException, e:
                 self.abort(422, e)
-            sender_user = models.User.query(models.User.phoneNumbers == phone_number)
-            if sender_user is None:
-                self.abort(422, "Could not find a user associated with that number")
             try:
-                create_client_message(phone_number, source_type, sender_user.get_id(),
-                                      body, route_name)
+                create_client_message(phone_number, messenger.SOURCE_TYPE_SMS,
+                                      sender_user.get_id(), body, route_id)
             except MessageException, e:
                 self.abort(422, e)
 
         elif MessageUtils.is_owner_message(message_raw):
-            print "message sending owner"
             try:
-                client_id, route_id, body = MessageUtils.split_owner_message(message_raw)
+                member_id, route_id, body = MessageUtils.split_owner_message(message_raw)
+                #Todo fix this redundancy as create_owner_message also queries for the route
+                route = models.Route.get_by_id(route_id)
+                client_id = models.RouteMember.get_user_id(route, member_id)
             except UtilsException, e:
                 self.abort(422, e)
-            sender_user = models.User.query(models.User.phoneNumbers == phone_number)
             try:
-                create_owner_message(phone_number, source_type, sender_user.get_id(),
-                                     body, client_id, route_id)
+                create_owner_message(phone_number, messenger.SOURCE_TYPE_SMS,
+                                     sender_user.get_id(), body, client_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
         else:
-            self.abort(403, "message recipient could not be determined")
+            self.abort(422, "message recipient could not be determined")
 
         self.set_default_success_response()
         self.send_response()
@@ -145,29 +148,34 @@ class MessageSMSCreationHandler(APIBaseHandler):
 
 class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
     def receive(self, mail_message):
-        print "receive email"
-        try:
-            email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
-        except UtilsException, e:
-            self.abort(422, e)
-
-        #TODO: route_id lowercase and strip!
-
+        # try:
+        #     email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
+        # except UtilsException, e:
+        #     self.abort(422, e)
+        email_sender = mail_message.sender
+        client_id = MessageUtils.get_header_from_message(mail_message.original)
         email_body = mail_message.body
-        client_id = mail_message.headers.get(Email.HEADER_EMBED_FIELD)
+
+        sender_user = models.User.query(models.User.emails == email_sender).get()
+        if sender_user is None:
+            self.abort(422, "Could not find user from sender")
+
         # client message
         if client_id is None or client_id == "":
-            route_name = mail_message.subject.strip().lower()
-            sender_user = models.User.query(models.User.emails == email_sender)
+            #add space to format as client message
+            route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
             try:
-                create_client_message(email_sender, sender_user, email_body, route_name)
+                create_client_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+                                      sender_user.get_id(),email_body,route_id)
             except MessageException, e:
                 self.abort(422, e)
         # owner message
         else:
-            sender_user = models.User.query(models.User.emails == email_sender)
+            #add space to format as owner message
+            route_id = MessageUtils.split_owner_message(mail_message.subject + " ")[1]
             try:
-                create_owner_message(email_sender, sender_user, email_body, client_id)
+                create_owner_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+                                     sender_user.get_id(), email_body, client_id, route_id)
             except MessageException, e:
                 self.abort(422, e)
 
@@ -243,11 +251,12 @@ class MessageListHandler(APIBaseHandler):
 
         route_id = kwargs["route_id"]
         client_id = kwargs["user_id"]
-        num_to_fetch = kwargs["n"]
+        num_to_fetch = int(kwargs["n"])
 
         curr_cursor = Cursor(urlsafe=self.get_param('cursor'))
         messages, cursor, more = models.Message.query(models.Message.routeId == route_id)\
                                                .filter(models.Message.clientUserId == client_id)\
+                                                .order(-models.Message.created)\
                                                 .fetch_page(num_to_fetch, start_cursor=curr_cursor)
 
         self.set_response_view_model(view_models.Message.view_list_contract())

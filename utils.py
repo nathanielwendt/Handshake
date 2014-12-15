@@ -6,6 +6,8 @@ import time
 import models
 from google.appengine.ext import ndb
 import random
+import messenger
+from email.parser import HeaderParser
 
 class UtilsException(Exception):
     def __init__(self, message):
@@ -80,6 +82,12 @@ class MessageUtils(object):
             return number[plus_index + 2:]
         else:
             return number
+
+    @staticmethod
+    def get_header_from_message(message):
+        parser = HeaderParser()
+        headers = parser.parsestr(message.as_string())
+        return headers.get(messenger.Email.HEADER_EMBED_FIELD)
 
 class BaseUtils(object):
     @staticmethod

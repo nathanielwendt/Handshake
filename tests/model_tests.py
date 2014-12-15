@@ -63,7 +63,7 @@ class TestRouteMember(AppEngineTest):
 
     def test_get_user_id(self):
         models.RouteMember.create_entry(self.route, "fox2", "user001", "Darwin Plum")
-        user_id = models.RouteMember.get_user_id(self.route, "fox2")
+        user_id = models.RouteMember.get_user_id(self.route.get_id(), "fox2")
         self.assertEqual("user001", user_id)
 
     def test_get_user_membership(self):
