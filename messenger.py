@@ -10,7 +10,9 @@ SOURCE_VALUE_NATIVE = "Native"
 
 class Email(object):
     HEADER_EMBED_FIELD = "On-Behalf-Of"
-    APP_SENDER = "string@handshake-app.appspotmail.com"
+    APP_SENDER = "handshake"
+    APP_SENDER += "@handshake-app"
+    APP_SENDER += ".appspotmail.com"
 
     @staticmethod
     def send(email, message, subject, behalf_of_header_val):

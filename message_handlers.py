@@ -8,6 +8,7 @@ import view_models
 from google.appengine.datastore.datastore_query import Cursor
 import json
 
+#TODO: check that user is a member before sending a message along a route
 
 def create_client_message(source, source_type, sender_user_id, message_body, route_id):
     route = models.Route.get_by_id(route_id)
@@ -149,35 +150,38 @@ class MessageSMSCreationHandler(APIBaseHandler):
 class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
     def receive(self, mail_message):
         # try:
-        #     email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
+        #      email_sender = MessageUtils.get_email_from_sender_field(mail_message.sender)
         # except UtilsException, e:
-        #     self.abort(422, e)
-        email_sender = mail_message.sender
-        client_id = MessageUtils.get_header_from_message(mail_message.original)
-        email_body = mail_message.body
-
-        sender_user = models.User.query(models.User.emails == email_sender).get()
-        if sender_user is None:
-            self.abort(422, "Could not find user from sender")
-
-        # client message
-        if client_id is None or client_id == "":
-            #add space to format as client message
-            route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
-            try:
-                create_client_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
-                                      sender_user.get_id(),email_body,route_id)
-            except MessageException, e:
-                self.abort(422, e)
-        # owner message
-        else:
-            #add space to format as owner message
-            route_id = MessageUtils.split_owner_message(mail_message.subject + " ")[1]
-            try:
-                create_owner_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
-                                     sender_user.get_id(), email_body, client_id, route_id)
-            except MessageException, e:
-                self.abort(422, e)
+        #      self.abort(422, e)
+        # #email_sender = mail_message.sender
+        #
+        # print mail_
+        #
+        # client_id = MessageUtils.get_header_from_message(mail_message.original)
+        # email_body = mail_message.body
+        #
+        # sender_user = models.User.query(models.User.emails == email_sender).get()
+        # if sender_user is None:
+        #     self.abort(422, "Could not find user from sender")
+        #
+        # # client message
+        # if client_id is None or client_id == "":
+        #     #add space to format as client message
+        #     route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
+        #     try:
+        #         create_client_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+        #                               sender_user.get_id(),email_body,route_id)
+        #     except MessageException, e:
+        #         self.abort(422, e)
+        # # owner message
+        # else:
+        #     #add space to format as owner message
+        #     route_id = MessageUtils.split_owner_message(mail_message.subject + " ")[1]
+        #     try:
+        #         create_owner_message(email_sender, messenger.SOURCE_TYPE_EMAIL,
+        #                              sender_user.get_id(), email_body, client_id, route_id)
+        #     except MessageException, e:
+        #         self.abort(422, e)
 
 
 class MessageNativeCreationHandler(APIBaseHandler):

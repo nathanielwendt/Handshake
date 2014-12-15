@@ -1,0 +1,8 @@
+indexes:
+
+- kind: Message
+  properties:
+  - name: clientUserId
+  - name: routeId
+  - name: created
+    direction: desc

@@ -1,5 +1,5 @@
 import re
-import cloudstorage
+from lib import cloudstorage
 import uuid
 import datetime
 import time
@@ -195,7 +195,7 @@ class NamingGenerator(object):
                         len(line) > 8:
                     continue
 
-                valid_items.append(line)
+                valid_items.append(line.capitalize())
 
             entry = models.Naming(id=name)
             random.shuffle(valid_items)

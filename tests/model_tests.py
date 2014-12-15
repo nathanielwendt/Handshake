@@ -51,7 +51,7 @@ class TestRouteMember(AppEngineTest):
         super(TestRouteMember, self).setUp()
         models.User(id="user001", name="Darwin Plum").put()
 
-        self.route = models.Route(id="BlueBonnet")
+        self.route = models.Route(id="bluebonnet", displayName="BlueBonnet")
         self.route.put()
 
     def test_create_and_get_entry(self):
@@ -63,20 +63,20 @@ class TestRouteMember(AppEngineTest):
 
     def test_get_user_id(self):
         models.RouteMember.create_entry(self.route, "fox2", "user001", "Darwin Plum")
-        user_id = models.RouteMember.get_user_id(self.route.get_id(), "fox2")
+        user_id = models.RouteMember.get_user_id(self.route, "fox2")
         self.assertEqual("user001", user_id)
 
     def test_get_user_membership(self):
         members = models.RouteMember.get_user_membership("user001")
         self.assertEquals([], members)
 
-        blue_bonnet = models.Route(id="BlueBonnet")
+        blue_bonnet = models.Route(id="bluebonnet", displayName="BlueBonnet")
         blue_bonnet.put()
-        sly_dog = models.Route(id="SlyDog")
+        sly_dog = models.Route(id="slydog", displayName="SlyDog")
         sly_dog.put()
-        slippery_vertigo = models.Route(id="SlipperyVertigo")
+        slippery_vertigo = models.Route(id="slipperyvertigo", displayName="SlipperyVertigo")
         slippery_vertigo.put()
-        green_lawn = models.Route(id="GreenLawn")
+        green_lawn = models.Route(id="greenlawn", displayName="GreenLawn")
         green_lawn.put()
 
         models.RouteMember.create_entry(blue_bonnet, "fox1", "user001", "Darwin Plum")

@@ -57,6 +57,7 @@ class TestRouteCreationHandler(AppEngineTest):
                 }
             ])
         }
+        print self.params
         self.send()
         self.expect_resp_code(422)
 
