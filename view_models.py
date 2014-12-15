@@ -66,7 +66,7 @@ class Message(object):
             "isClient": msg.is_client_message(),
             "routeId": msg.routeId,
             "message": msg.body,
-            "created": msg.created
+            "created": BaseUtils.datetime_to_epoch(msg.created)
         }
 
     @staticmethod
@@ -151,14 +151,16 @@ class RouteMember(object):
     def view_contract():
         return {
             "userId": "+",
-            "memberId": "+"
+            "memberId": "+",
+            "displayName": "+"
         }
 
     @staticmethod
     def form(member):
         return {
             "userId": member.userId,
-            "memberId": member.memberId
+            "memberId": member.memberId,
+            "displayName": member.userDisplayName
         }
 
     @staticmethod

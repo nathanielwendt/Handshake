@@ -92,7 +92,11 @@ class MessageUtils(object):
     @staticmethod
     def split_owner_subject(message_subject):
         portions = message_subject.split(":")
-        member, route_id, message = MessageUtils.split_owner_message(portions[2])
+        if len(portions) == 3:
+            index = 2
+        else:
+            index = 1
+        member, route_id, message = MessageUtils.split_owner_message(portions[index])
         return member, route_id
 
     @staticmethod

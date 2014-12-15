@@ -35,8 +35,8 @@ class SMS(object):
         token = "4d61f59af147ca5ccf562e08f72e3696"
         client = TwilioRestClient(account, token)
 
-        message = client.messages.create(to=number, from_=SMS.TWILIO_NUM,
-                                         body=message)
+        #message = client.messages.create(to=number, from_=SMS.TWILIO_NUM,
+        #                                 body=message)
 
 class GCM(object):
     PUSH_URL = 'https://android.googleapis.com/gcm/send'

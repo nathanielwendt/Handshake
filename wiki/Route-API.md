@@ -44,7 +44,10 @@ Retrieves a list of members belonging to a specific route
 #####Response#####
 
 ~~~~
-{'members': [{'memberId': '+', 'userId': '+'}, '*']}
+{'members': [{'displayName': '+',
+              'memberId': '+',
+              'userId': '+'},
+             '*']}
 ~~~~
 
 ------------
@@ -58,7 +61,7 @@ Joins a user to a specific route
 #####Response#####
 
 ~~~~
-{'memberId': '+', 'userId': '+'}
+{'displayName': '+', 'memberId': '+', 'userId': '+'}
 ~~~~
 
 ------------

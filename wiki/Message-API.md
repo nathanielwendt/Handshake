@@ -17,7 +17,8 @@ Retrieves a list of messages as a back and forth between a route owner and singl
                'id': '+',
                'isClient': '+',
                'message': '+',
-               'routeId': '+'}],
+               'routeId': '+'},
+              '*'],
  'more': '+'}
 ~~~~
 

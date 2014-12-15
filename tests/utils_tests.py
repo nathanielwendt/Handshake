@@ -414,8 +414,14 @@ class TestSplitMessage(AppEngineTest):
         self.assertEqual("@yikes El3k g", message)
 
 class TestEmailUtils(AppEngineTest):
-    def split_owner_subject_valid(self):
+    def test_split_owner_subject_valid_re(self):
         subject = "Re: HandshakeMessage: guanaco@SoftDill [John Stone]"
+        member, route_id = MessageUtils.split_owner_subject(subject)
+        self.assertEqual("guanaco", member)
+        self.assertEqual("softdill", route_id)
+
+    def test_split_owner_subject_valid(self):
+        subject = "HandshakeMessage: guanaco@SoftDill [John Stone]"
         member, route_id = MessageUtils.split_owner_subject(subject)
         self.assertEqual("guanaco", member)
         self.assertEqual("softdill", route_id)

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f56c58f-156f-44c6-91f8-49bba48377ef" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wiki/Message-API.md" afterPath="$PROJECT_DIR$/wiki/Message-API.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wiki/Route-API.md" afterPath="$PROJECT_DIR$/wiki/Route-API.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.yaml" afterPath="$PROJECT_DIR$/index.yaml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/message_handlers.py" afterPath="$PROJECT_DIR$/message_handlers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/messenger.py" afterPath="$PROJECT_DIR$/messenger.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/route_handler_tests.py" afterPath="$PROJECT_DIR$/tests/route_handler_tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/utils_tests.py" afterPath="$PROJECT_DIR$/tests/utils_tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view_models.py" afterPath="$PROJECT_DIR$/view_models.py" />
@@ -23,23 +21,24 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageUtilsGeneral_test_strip_plus_from_number_empty.coverage" NAME="Unittest TestMessageUtilsGeneral.test_strip_plus_from_number_empty Coverage Results" MODIFIED="1418439433179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_model_tests.coverage" NAME="Unittests in model_tests Coverage Results" MODIFIED="1418626886310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestMessageEmailCreationHandler.coverage" NAME="Unittests in TestMessageEmailCreationHandler Coverage Results" MODIFIED="1418610633407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_model_tests.coverage" NAME="Unittests in model_tests Coverage Results" MODIFIED="1418626886310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_invalid_no_space.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_invalid_no_space Coverage Results" MODIFIED="1418365372133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_required_valid_list_simple.coverage" NAME="Unittest TestContractConforms.test_required_valid_list_simple Coverage Results" MODIFIED="1416360677093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberListHandler_test_basic_valid.coverage" NAME="Unittest TestRouteMemberListHandler.test_basic_valid Coverage Results" MODIFIED="1418417892620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestEmailUtils_test_split_owner_subject_valid_re.coverage" NAME="Unittest TestEmailUtils.test_split_owner_subject_valid_re Coverage Results" MODIFIED="1418665161190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUserNotificationsHandler_test_valid_multiple.coverage" NAME="Unittest TestUserNotificationsHandler.test_valid_multiple Coverage Results" MODIFIED="1418539327724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberListHandler_test_basic_valid.coverage" NAME="Unittest TestRouteMemberListHandler.test_basic_valid Coverage Results" MODIFIED="1418417892620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberListHandler_test_invalid_non_owner_query.coverage" NAME="Unittest TestRouteMemberListHandler.test_invalid_non_owner_query Coverage Results" MODIFIED="1418536675031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteListHandler_test_basic.coverage" NAME="Unittest TestRouteListHandler.test_basic Coverage Results" MODIFIED="1418538440935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestAPIUtils_test_contract_conforms.coverage" NAME="Unittest TestAPIUtils.test_contract_conforms Coverage Results" MODIFIED="1416359802183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_basic_message_storage.coverage" NAME="Unittest TestCreateClientMessage.test_basic_message_storage Coverage Results" MODIFIED="1418610820908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSMS_test_2.coverage" NAME="Unittest TestSMS.test_2 Coverage Results" MODIFIED="1418443016981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_basic_message_storage.coverage" NAME="Unittest TestCreateClientMessage.test_basic_message_storage Coverage Results" MODIFIED="1418610820908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestAPIUtilsMisc.coverage" NAME="Unittests in TestAPIUtilsMisc Coverage Results" MODIFIED="1417052982385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_create_owner_to_sms.coverage" NAME="Unittest TestCreateOwnerMessage.test_create_owner_to_sms Coverage Results" MODIFIED="1418611453889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_extra_space.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_extra_space Coverage Results" MODIFIED="1418365945439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$trimtxt.coverage" NAME="trimtxt Coverage Results" MODIFIED="1418187487992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberListHandler_test_basic_empty.coverage" NAME="Unittest TestRouteMemberListHandler.test_basic_empty Coverage Results" MODIFIED="1418418222330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestEmailUtils.coverage" NAME="Unittests in TestEmailUtils Coverage Results" MODIFIED="1418599842021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestEmailUtils.coverage" NAME="Unittests in TestEmailUtils Coverage Results" MODIFIED="1418665105011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_client_send_invalid_closed_route.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_client_send_invalid_closed_route Coverage Results" MODIFIED="1418609904390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_contention_member.coverage" NAME="Unittest TestNamingGenerator.test_contention_member Coverage Results" MODIFIED="1418412642993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_bust_still_owner_message.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_bust_still_owner_message Coverage Results" MODIFIED="1418613509358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -49,25 +48,27 @@
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestSplitMessage.coverage" NAME="Unittests in TestSplitMessage Coverage Results" MODIFIED="1418443005461" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_receive_from_owner.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_receive_from_owner Coverage Results" MODIFIED="1418613185615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_invalid_no_member.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_invalid_no_member Coverage Results" MODIFIED="1418365569240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteListHandler.coverage" NAME="Unittests in TestRouteListHandler Coverage Results" MODIFIED="1418619453624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_required_empty_list_simple_pass.coverage" NAME="Unittest TestContractConforms.test_required_empty_list_simple_pass Coverage Results" MODIFIED="1416360642389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_invalid.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_invalid Coverage Results" MODIFIED="1418365867798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_required_empty_list_simple_pass.coverage" NAME="Unittest TestContractConforms.test_required_empty_list_simple_pass Coverage Results" MODIFIED="1416360642389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteListHandler.coverage" NAME="Unittests in TestRouteListHandler Coverage Results" MODIFIED="1418619453624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_new.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_new Coverage Results" MODIFIED="1418364349131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUserCreationHandler_test_basic.coverage" NAME="Unittest TestUserCreationHandler.test_basic Coverage Results" MODIFIED="1418538934141" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_basic.coverage" NAME="Unittest TestUser.test_basic Coverage Results" MODIFIED="1415905399833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestEmailUtils__3_.coverage" NAME="Unittests in TestEmailUtils (3) Coverage Results" MODIFIED="1418664789041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberCreationHandler_test_invalid_route.coverage" NAME="Unittest TestRouteMemberCreationHandler.test_invalid_route Coverage Results" MODIFIED="1418537343153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_basic.coverage" NAME="Unittest TestUser.test_basic Coverage Results" MODIFIED="1415905399833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_basic_only_push.coverage" NAME="Unittest TestCreateClientMessage.test_basic_only_push Coverage Results" MODIFIED="1418605319098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_user_handler_tests.coverage" NAME="Unittests in user_handler_tests Coverage Results" MODIFIED="1418539335358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_empty_list_complex.coverage" NAME="Unittest TestContractConforms.test_empty_list_complex Coverage Results" MODIFIED="1416360243930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestMessageUtilsGeneral.coverage" NAME="Unittests in TestMessageUtilsGeneral Coverage Results" MODIFIED="1418440704589" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestUserCreationHandler.coverage" NAME="Unittests in TestUserCreationHandler Coverage Results" MODIFIED="1418269858202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_empty_list_complex.coverage" NAME="Unittest TestContractConforms.test_empty_list_complex Coverage Results" MODIFIED="1416360243930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test.coverage" NAME="Unittest TestMessageNativeCreationHandler.test Coverage Results" MODIFIED="1418427868308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestUserCreationHandler.coverage" NAME="Unittests in TestUserCreationHandler Coverage Results" MODIFIED="1418269858202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_optional.coverage" NAME="Unittest TestContractConforms.test_optional Coverage Results" MODIFIED="1416360889855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_client_send_native.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_client_send_native Coverage Results" MODIFIED="1418444214290" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_but_still_client_message.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_but_still_client_message Coverage Results" MODIFIED="1418613468895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_multiple_identifiers.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_multiple_identifiers Coverage Results" MODIFIED="1418365900275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUserCreationHandler_test_signup_malformed_param.coverage" NAME="Unittest TestUserCreationHandler.test_signup_malformed_param Coverage Results" MODIFIED="1418538871080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_multiple_identifiers.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_multiple_identifiers Coverage Results" MODIFIED="1418365900275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_receive_from_client.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_receive_from_client Coverage Results" MODIFIED="1418613222823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestEmailUtils__2_.coverage" NAME="Unittests in TestEmailUtils (2) Coverage Results" MODIFIED="1418664785878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestCreateOwnerMessage.coverage" NAME="Unittests in TestCreateOwnerMessage Coverage Results" MODIFIED="1418611735207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberCreationHandler_test_invalid_join_own_route.coverage" NAME="Unittest TestRouteMemberCreationHandler.test_invalid_join_own_route Coverage Results" MODIFIED="1418537362906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_external_member_invalid.coverage" NAME="Unittest TestNamingGenerator.test_external_member_invalid Coverage Results" MODIFIED="1418413850192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -117,90 +118,92 @@
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_message_handler_tests.coverage" NAME="Unittests in message_handler_tests Coverage Results" MODIFIED="1418626321155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_multiple_identifiers.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_multiple_identifiers Coverage Results" MODIFIED="1417066046377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_contention_route_id.coverage" NAME="Unittest TestNamingGenerator.test_contention_route_id Coverage Results" MODIFIED="1418327304243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_basic.coverage" NAME="Unittest TestCreateClientMessage.test_basic Coverage Results" MODIFIED="1418604918946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_none_value.coverage" NAME="Unittest TestContractConforms.test_none_value Coverage Results" MODIFIED="1416360327717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_basic.coverage" NAME="Unittest TestCreateClientMessage.test_basic Coverage Results" MODIFIED="1418604918946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_get_user_membership.coverage" NAME="Unittest TestRouteMember.test_get_user_membership Coverage Results" MODIFIED="1418626878956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestAPIUtilsMisc_test_split_incoming_message_no_atsymbol.coverage" NAME="Unittest TestAPIUtilsMisc.test_split_incoming_message_no_atsymbol Coverage Results" MODIFIED="1416417600509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestMessageSMSCreationHandler.coverage" NAME="Unittests in TestMessageSMSCreationHandler Coverage Results" MODIFIED="1418613318011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_outgoing_gcm.coverage" NAME="Unittest TestCreateOwnerMessage.test_outgoing_gcm Coverage Results" MODIFIED="1418611668498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_contention.coverage" NAME="Unittest TestNamingGenerator.test_contention Coverage Results" MODIFIED="1418258777257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_outgoing_gcm.coverage" NAME="Unittest TestCreateOwnerMessage.test_outgoing_gcm Coverage Results" MODIFIED="1418611668498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestAccessSlot.coverage" NAME="Unittests in TestAccessSlot Coverage Results" MODIFIED="1418269834238" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberCreationHandler_test_basic.coverage" NAME="Unittest TestRouteMemberCreationHandler.test_basic Coverage Results" MODIFIED="1418537101565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageEmailCreationHandler_test_basic.coverage" NAME="Unittest TestMessageEmailCreationHandler.test_basic Coverage Results" MODIFIED="1418602582476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_outgoing_sms.coverage" NAME="Unittest TestCreateOwnerMessage.test_outgoing_sms Coverage Results" MODIFIED="1418611653232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_phone_numbers.coverage" NAME="Unittest TestRouteHandler.test_put_phone_numbers Coverage Results" MODIFIED="1418425134393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_load_member.coverage" NAME="Unittest TestNamingGenerator.test_load_member Coverage Results" MODIFIED="1418412448938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$autodoc.coverage" NAME="autodoc Coverage Results" MODIFIED="1418639472012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_phone_numbers.coverage" NAME="Unittest TestRouteHandler.test_put_phone_numbers Coverage Results" MODIFIED="1418425134393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_outgoing_sms.coverage" NAME="Unittest TestCreateOwnerMessage.test_outgoing_sms Coverage Results" MODIFIED="1418611653232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$autodoc.coverage" NAME="autodoc Coverage Results" MODIFIED="1418666534785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_quick.coverage" NAME="Unittest TestRouteHandler.test_quick Coverage Results" MODIFIED="1417820834363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_required_empty_list_simple.coverage" NAME="Unittest TestContractConforms.test_required_empty_list_simple Coverage Results" MODIFIED="1416360815802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_route_handler_tests.coverage" NAME="Unittests in route_handler_tests Coverage Results" MODIFIED="1418619562512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_owner_send_to_sms.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_owner_send_to_sms Coverage Results" MODIFIED="1418445829389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_create_and_get_case.coverage" NAME="Unittest TestRouteMember.test_create_and_get_case Coverage Results" MODIFIED="1418410612395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_owner_send_to_sms.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_owner_send_to_sms Coverage Results" MODIFIED="1418445829389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_route_handler_tests.coverage" NAME="Unittests in route_handler_tests Coverage Results" MODIFIED="1418619562512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_basic.coverage" NAME="Unittest TestCreateOwnerMessage.test_basic Coverage Results" MODIFIED="1418611389555" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_get_user_id.coverage" NAME="Unittest TestRouteMember.test_get_user_id Coverage Results" MODIFIED="1418626566446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteMemberHandler.coverage" NAME="Unittests in TestRouteMemberHandler Coverage Results" MODIFIED="1418456915005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_phone_numbers_invalid_number.coverage" NAME="Unittest TestRouteHandler.test_put_phone_numbers_invalid_number Coverage Results" MODIFIED="1418425058297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteMemberHandler.coverage" NAME="Unittests in TestRouteMemberHandler Coverage Results" MODIFIED="1418456915005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_get_user_id.coverage" NAME="Unittest TestRouteMember.test_get_user_id Coverage Results" MODIFIED="1418626566446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSMS_test_basic.coverage" NAME="Unittest TestSMS.test_basic Coverage Results" MODIFIED="1418446922710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_invalid_no_last_message.coverage" NAME="Unittest TestCreateOwnerMessage.test_invalid_no_last_message Coverage Results" MODIFIED="1418611344301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestSplitIncomingMessage.coverage" NAME="Unittests in TestSplitIncomingMessage Coverage Results" MODIFIED="1417054310737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_invalid_no_last_message.coverage" NAME="Unittest TestCreateOwnerMessage.test_invalid_no_last_message Coverage Results" MODIFIED="1418611344301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_owner_send_to_native.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_owner_send_to_native Coverage Results" MODIFIED="1418445688647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_create_and_get_entry.coverage" NAME="Unittest TestRouteMember.test_create_and_get_entry Coverage Results" MODIFIED="1418626650808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_invalid_prev_message_source_type.coverage" NAME="Unittest TestCreateOwnerMessage.test_invalid_prev_message_source_type Coverage Results" MODIFIED="1418613902054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMember_test_create_and_get_entry.coverage" NAME="Unittest TestRouteMember.test_create_and_get_entry Coverage Results" MODIFIED="1418626650808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_no_identifier.coverage" NAME="Unittest TestSplitMessage.test_split_owner_no_identifier Coverage Results" MODIFIED="1417054502135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_emails_invalid_email.coverage" NAME="Unittest TestRouteHandler.test_put_emails_invalid_email Coverage Results" MODIFIED="1418424727119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_signup_malformed_value.coverage" NAME="Unittest TestUser.test_signup_malformed_value Coverage Results" MODIFIED="1415758930187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_invalid_route_id.coverage" NAME="Unittest TestRouteHandler.test_put_invalid_route_id Coverage Results" MODIFIED="1418421348103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_signup_malformed_value.coverage" NAME="Unittest TestUser.test_signup_malformed_value Coverage Results" MODIFIED="1415758930187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_load__1_.coverage" NAME="Unittest TestNamingGenerator.test_load (1) Coverage Results" MODIFIED="1418257624034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestAccessSlot_test_update.coverage" NAME="Unittest TestAccessSlot.test_update Coverage Results" MODIFIED="1415773097856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestEmailUtils__1_.coverage" NAME="Unittests in TestEmailUtils (1) Coverage Results" MODIFIED="1418664768385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_emails_empty.coverage" NAME="Unittest TestRouteHandler.test_put_emails_empty Coverage Results" MODIFIED="1418424208054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_invalid_route_closed.coverage" NAME="Unittest TestCreateClientMessage.test_invalid_route_closed Coverage Results" MODIFIED="1418605495466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestAccessSlot_test_update.coverage" NAME="Unittest TestAccessSlot.test_update Coverage Results" MODIFIED="1415773097856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_basic.coverage" NAME="Unittest TestRouteHandler.test_basic Coverage Results" MODIFIED="1418269722827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateClientMessage_test_invalid_route_closed.coverage" NAME="Unittest TestCreateClientMessage.test_invalid_route_closed Coverage Results" MODIFIED="1418605495466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteCreationHandler_test_malformed_user_id_and_slots.coverage" NAME="Unittest TestRouteCreationHandler.test_malformed_user_id_and_slots Coverage Results" MODIFIED="1417822003954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_sender_user.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_sender_user Coverage Results" MODIFIED="1418613233286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_nested_passed.coverage" NAME="Unittest TestContractConforms.test_nested_passed Coverage Results" MODIFIED="1416360977809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_sender_user.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_sender_user Coverage Results" MODIFIED="1418613233286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_nested_partial_fails.coverage" NAME="Unittest TestContractConforms.test_nested_partial_fails Coverage Results" MODIFIED="1416361048112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_slots_empty.coverage" NAME="Unittest TestRouteHandler.test_put_slots_empty Coverage Results" MODIFIED="1418427121948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_basic_message_storage.coverage" NAME="Unittest TestCreateOwnerMessage.test_basic_message_storage Coverage Results" MODIFIED="1418611580432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_optional_none_value.coverage" NAME="Unittest TestContractConforms.test_optional_none_value Coverage Results" MODIFIED="1416360430738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestCreateOwnerMessage_test_basic_message_storage.coverage" NAME="Unittest TestCreateOwnerMessage.test_basic_message_storage Coverage Results" MODIFIED="1418611580432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitIncomingMessage_test_split_incoming_message_invalid.coverage" NAME="Unittest TestSplitIncomingMessage.test_split_incoming_message_invalid Coverage Results" MODIFIED="1417053526197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageEmailCreationHandler_test_receive_from_owner.coverage" NAME="Unittest TestMessageEmailCreationHandler.test_receive_from_owner Coverage Results" MODIFIED="1418607222647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_test_route_handlers.coverage" NAME="Unittests in test_route_handlers Coverage Results" MODIFIED="1418240082220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_invalid_route_id.coverage" NAME="Unittest TestRouteHandler.test_invalid_route_id Coverage Results" MODIFIED="1418269296850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Handshake.coverage" NAME="Handshake Coverage Results" MODIFIED="1418168431824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_exact_value_no_match.coverage" NAME="Unittest TestContractConforms.test_exact_value_no_match Coverage Results" MODIFIED="1416366065259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_invalid_route_id.coverage" NAME="Unittest TestRouteHandler.test_invalid_route_id Coverage Results" MODIFIED="1418269296850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestAPIUtilsMisc_test_split_incoming_message_multiple_at.coverage" NAME="Unittest TestAPIUtilsMisc.test_split_incoming_message_multiple_at Coverage Results" MODIFIED="1416417928761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_exact_value_no_match.coverage" NAME="Unittest TestContractConforms.test_exact_value_no_match Coverage Results" MODIFIED="1416366065259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_loop_member.coverage" NAME="Unittest TestNamingGenerator.test_loop_member Coverage Results" MODIFIED="1418413891348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitIncomingMessage_test_split_incoming_message_valid.coverage" NAME="Unittest TestSplitIncomingMessage.test_split_incoming_message_valid Coverage Results" MODIFIED="1417053512390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageNativeCreationHandler_test_owner_send_to_email.coverage" NAME="Unittest TestMessageNativeCreationHandler.test_owner_send_to_email Coverage Results" MODIFIED="1418445837020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_invalid_empty.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_invalid_empty Coverage Results" MODIFIED="1418365604320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitIncomingMessage_test_split_incoming_message_valid.coverage" NAME="Unittest TestSplitIncomingMessage.test_split_incoming_message_valid Coverage Results" MODIFIED="1417053512390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_required_partial_missing_list.coverage" NAME="Unittest TestContractConforms.test_required_partial_missing_list Coverage Results" MODIFIED="1416360907522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_invalid_empty.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_invalid_empty Coverage Results" MODIFIED="1418365604320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageListHandler_test_basic.coverage" NAME="Unittest TestMessageListHandler.test_basic Coverage Results" MODIFIED="1418597690851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_slots.coverage" NAME="Unittest TestRouteHandler.test_put_slots Coverage Results" MODIFIED="1418425651826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUserCreationHandler_test_signup_valid.coverage" NAME="Unittest TestUserCreationHandler.test_signup_valid Coverage Results" MODIFIED="1418538841057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_slots.coverage" NAME="Unittest TestRouteHandler.test_put_slots Coverage Results" MODIFIED="1418425651826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_no_identifier.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_no_identifier Coverage Results" MODIFIED="1418365872103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteListHandler_test_invalid_user.coverage" NAME="Unittest TestRouteListHandler.test_invalid_user Coverage Results" MODIFIED="1418538484374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestEmailUtils_test_get_member_and_route_from_subject.coverage" NAME="Unittest TestEmailUtils.test_get_member_and_route_from_subject Coverage Results" MODIFIED="1418632810314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestUserHandler.coverage" NAME="Unittests in TestUserHandler Coverage Results" MODIFIED="1416270856702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestEmailUtils_test_get_member_and_route_from_subject.coverage" NAME="Unittest TestEmailUtils.test_get_member_and_route_from_subject Coverage Results" MODIFIED="1418632810314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestEmailUtils_test_split_owner_subject_valid.coverage" NAME="Unittest TestEmailUtils.test_split_owner_subject_valid Coverage Results" MODIFIED="1418665166498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestCreateClientMessage.coverage" NAME="Unittests in TestCreateClientMessage Coverage Results" MODIFIED="1418611740646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestGetEmailFromSender_test_get_email_invalid.coverage" NAME="Unittest TestGetEmailFromSender.test_get_email_invalid Coverage Results" MODIFIED="1417071969921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_none_value_str.coverage" NAME="Unittest TestContractConforms.test_none_value_str Coverage Results" MODIFIED="1416360405256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageEmailCreationHandler_test_receive_from_client.coverage" NAME="Unittest TestMessageEmailCreationHandler.test_receive_from_client Coverage Results" MODIFIED="1418610584503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestUser.coverage" NAME="Unittests in TestUser Coverage Results" MODIFIED="1415904810668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestContractConforms.coverage" NAME="Unittests in TestContractConforms Coverage Results" MODIFIED="1418239596342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_emails.coverage" NAME="Unittest TestRouteHandler.test_put_emails Coverage Results" MODIFIED="1418424397088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestMessageNativeCreationHandler.coverage" NAME="Unittests in TestMessageNativeCreationHandler Coverage Results" MODIFIED="1418609947051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestContractConforms.coverage" NAME="Unittests in TestContractConforms Coverage Results" MODIFIED="1418239596342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_signup_valid.coverage" NAME="Unittest TestUser.test_signup_valid Coverage Results" MODIFIED="1415757968876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestMessageNativeCreationHandler.coverage" NAME="Unittests in TestMessageNativeCreationHandler Coverage Results" MODIFIED="1418609947051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteCreationHandler_test_invalid_no_email_or_phone_num.coverage" NAME="Unittest TestRouteCreationHandler.test_invalid_no_email_or_phone_num Coverage Results" MODIFIED="1418625145004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_body.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_body Coverage Results" MODIFIED="1418613452934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_invalid_empty.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_invalid_empty Coverage Results" MODIFIED="1418365879306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_empty_list.coverage" NAME="Unittest TestContractConforms.test_empty_list Coverage Results" MODIFIED="1416360237750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_client_message_invalid_empty.coverage" NAME="Unittest TestSplitMessage.test_split_client_message_invalid_empty Coverage Results" MODIFIED="1418365879306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageSMSCreationHandler_test_invalid_body.coverage" NAME="Unittest TestMessageSMSCreationHandler.test_invalid_body Coverage Results" MODIFIED="1418613452934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageListHandler_test_cursor.coverage" NAME="Unittest TestMessageListHandler.test_cursor Coverage Results" MODIFIED="1418597827864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUser_test_signup_malformed.coverage" NAME="Unittest TestUser.test_signup_malformed Coverage Results" MODIFIED="1415758784535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteMemberCreationHandler_test_invalid_already_joined_route.coverage" NAME="Unittest TestRouteMemberCreationHandler.test_invalid_already_joined_route Coverage Results" MODIFIED="1418537303499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestContractConforms_test_nested_partial_fail.coverage" NAME="Unittest TestContractConforms.test_nested_partial_fail Coverage Results" MODIFIED="1416361112582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageEmailCreationHandler_test_receive_invalid_sender_user.coverage" NAME="Unittest TestMessageEmailCreationHandler.test_receive_invalid_sender_user Coverage Results" MODIFIED="1418607215281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteMember.coverage" NAME="Unittests in TestRouteMember Coverage Results" MODIFIED="1418414862146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestUserNotificationsHandler_test_basic.coverage" NAME="Unittest TestUserNotificationsHandler.test_basic Coverage Results" MODIFIED="1418539325394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittests_in_TestRouteMember.coverage" NAME="Unittests in TestRouteMember Coverage Results" MODIFIED="1418414862146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Handshake$Unittest_TestMessageEmailCreationHandler_test_receive_invalid_sender_user.coverage" NAME="Unittest TestMessageEmailCreationHandler.test_receive_invalid_sender_user Coverage Results" MODIFIED="1418607215281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestRouteHandler_test_put_phone_numbers_malformed_number.coverage" NAME="Unittest TestRouteHandler.test_put_phone_numbers_malformed_number Coverage Results" MODIFIED="1418426853390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestSplitMessage_test_split_owner_message_valid_case.coverage" NAME="Unittest TestSplitMessage.test_split_owner_message_valid_case Coverage Results" MODIFIED="1418365323296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Handshake$Unittest_TestNamingGenerator_test_load_route_id.coverage" NAME="Unittest TestNamingGenerator.test_load_route_id Coverage Results" MODIFIED="1418416312311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -216,17 +219,15 @@
     <favorites_list name="Handshake" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.39459458">
+    <splitter split-orientation="horizontal" split-proportion="0.42766297">
       <split-first>
         <leaf>
           <file leaf-file-name="message_handler_tests.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/message_handler_tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-21.961538" vertical-offset="4829" max-vertical-offset="9975">
+                <state vertical-scroll-proportion="0.0" vertical-offset="4829" max-vertical-offset="9975">
                   <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#13#0" expanded="true" />
-                  </folding>
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -234,7 +235,7 @@
           <file leaf-file-name="model_tests.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/model_tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="1455">
+                <state vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1500">
                   <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
                   <folding />
                 </state>
@@ -244,81 +245,18 @@
           <file leaf-file-name="route_handler_tests.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/route_handler_tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="6825">
-                  <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="6930">
+                  <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.yaml" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/index.yaml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
-                  <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="autodoc.py" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/autodoc.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.64416057" vertical-offset="1777" max-vertical-offset="3420">
-                  <caret line="148" column="29" selection-start-line="148" selection-start-column="29" selection-end-line="148" selection-end-column="29" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="utils_tests.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="utils_tests.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tests/utils_tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="669" max-vertical-offset="6825">
-                  <caret line="296" column="0" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="app.yaml" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app.yaml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-                  <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-                  <folding>
-                    <marker date="1418631918000" expanded="true" signature="88:288" placeholder="handlers:" />
-                    <marker date="1418631918000" expanded="true" signature="289:314" placeholder="inbound_services:" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="animals-trim.txt" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/data/animals-trim.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="3721" max-vertical-offset="4440">
-                  <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="adjectives-trim.txt" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/data/adjectives-trim.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="6946" max-vertical-offset="7530">
-                  <caret line="468" column="6" selection-start-line="468" selection-start-column="6" selection-end-line="468" selection-end-column="6" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="nouns-trim.txt" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/data/nouns-trim.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="20341" max-vertical-offset="20925">
-                  <caret line="1389" column="3" selection-start-line="1389" selection-start-column="3" selection-end-line="1389" selection-end-column="3" />
+                <state vertical-scroll-proportion="0.30897704" vertical-offset="6107" max-vertical-offset="6915">
+                  <caret line="422" column="31" selection-start-line="422" selection-start-column="31" selection-end-line="422" selection-end-column="31" />
                   <folding />
                 </state>
               </provider>
@@ -331,7 +269,7 @@
           <file leaf-file-name="handler_utils.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handler_utils.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="1126" max-vertical-offset="3855">
+                <state vertical-scroll-proportion="0.0" vertical-offset="1815" max-vertical-offset="3975">
                   <caret line="121" column="48" selection-start-line="121" selection-start-column="48" selection-end-line="121" selection-end-column="48" />
                   <folding />
                 </state>
@@ -341,7 +279,7 @@
           <file leaf-file-name="user_handlers.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/user_handlers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
+                <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1335">
                   <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
                   <folding />
                 </state>
@@ -351,8 +289,8 @@
           <file leaf-file-name="messenger.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/messenger.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-                  <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="960">
+                  <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
                   <folding />
                 </state>
               </provider>
@@ -361,18 +299,8 @@
           <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="295" max-vertical-offset="1035">
-                  <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="debug_handlers.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/debug_handlers.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="510">
-                  <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1035">
+                  <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -381,7 +309,7 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="2000" max-vertical-offset="3600">
+                <state vertical-scroll-proportion="0.0" vertical-offset="2400" max-vertical-offset="3690">
                   <caret line="160" column="37" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="37" />
                   <folding />
                 </state>
@@ -391,18 +319,28 @@
           <file leaf-file-name="route_handlers.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/route_handlers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="3630">
-                  <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="2136" max-vertical-offset="3630">
+                  <caret line="177" column="56" selection-start-line="177" selection-start-column="56" selection-end-line="177" selection-end-column="56" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="view_models.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="view_models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/view_models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.2634408" vertical-offset="390" max-vertical-offset="2715">
-                  <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="2163" max-vertical-offset="2745">
+                  <caret line="154" column="29" selection-start-line="154" selection-start-column="29" selection-end-line="154" selection-end-column="29" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="autodoc.py" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/autodoc.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.5177453" vertical-offset="1777" max-vertical-offset="3420">
+                  <caret line="141" column="17" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -411,11 +349,9 @@
           <file leaf-file-name="message_handlers.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/message_handlers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-12.230769" vertical-offset="3642" max-vertical-offset="4290">
-                  <caret line="264" column="45" selection-start-line="264" selection-start-column="45" selection-end-line="264" selection-end-column="45" />
-                  <folding>
-                    <element signature="e#0#60#0" expanded="true" />
-                  </folding>
+                <state vertical-scroll-proportion="0.0" vertical-offset="2235" max-vertical-offset="4425">
+                  <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -423,11 +359,9 @@
           <file leaf-file-name="utils.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/utils.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="1845" max-vertical-offset="4440">
-                  <caret line="103" column="24" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
+                <state vertical-scroll-proportion="0.0" vertical-offset="1064" max-vertical-offset="4365">
+                  <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -482,24 +416,23 @@
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/tests/message_handler_tests.py" />
         <option value="$PROJECT_DIR$/route_handlers.py" />
-        <option value="$PROJECT_DIR$/tests/route_handler_tests.py" />
         <option value="$PROJECT_DIR$/tests/model_tests.py" />
         <option value="$PROJECT_DIR$/app.yaml" />
-        <option value="$PROJECT_DIR$/tests/utils_tests.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/messenger.py" />
         <option value="$PROJECT_DIR$/index.yaml" />
-        <option value="$PROJECT_DIR$/message_handlers.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/messenger.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/tests/route_handler_tests.py" />
+        <option value="$PROJECT_DIR$/tests/utils_tests.py" />
+        <option value="$PROJECT_DIR$/message_handlers.py" />
         <option value="$PROJECT_DIR$/view_models.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1544" />
-    <option name="y" value="-219" />
-    <option name="width" value="1773" />
-    <option name="height" value="956" />
+    <option name="y" value="22" />
+    <option name="width" value="1440" />
+    <option name="height" value="799" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -653,82 +586,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.autodoc">
-    <configuration default="false" name="Unittests in model_tests" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Handshake" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/model_tests.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestRouteMember.test_get_user_membership" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Handshake" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/model_tests.py" />
-      <option name="CLASS_NAME" value="TestRouteMember" />
-      <option name="METHOD_NAME" value="test_get_user_membership" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestRouteMember.test_create_and_get_entry" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Handshake" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/model_tests.py" />
-      <option name="CLASS_NAME" value="TestRouteMember" />
-      <option name="METHOD_NAME" value="test_create_and_get_entry" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestEmailUtils.test_get_member_and_route_from_subject" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Unittests in TestEmailUtils" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -741,7 +599,82 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/utils_tests.py" />
       <option name="CLASS_NAME" value="TestEmailUtils" />
-      <option name="METHOD_NAME" value="test_get_member_and_route_from_subject" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in TestEmailUtils (3)" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Handshake" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/utils_tests.py" />
+      <option name="CLASS_NAME" value="TestEmailUtils" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestEmailUtils.test_split_owner_subject_valid_re" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Handshake" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/utils_tests.py" />
+      <option name="CLASS_NAME" value="TestEmailUtils" />
+      <option name="METHOD_NAME" value="test_split_owner_subject_valid_re" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestEmailUtils.test_split_owner_subject_valid" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Handshake" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/utils_tests.py" />
+      <option name="CLASS_NAME" value="TestEmailUtils" />
+      <option name="METHOD_NAME" value="test_split_owner_subject_valid" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -817,23 +750,6 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.AppEngineServer" factoryName="App Engine server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Handshake" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="host" value="127.0.0.1" />
-      <option name="browserUrl" value="" />
-      <option name="additionalOptions" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -856,6 +772,23 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="Python.AppEngineServer" factoryName="App Engine server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Handshake" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="host" value="127.0.0.1" />
+      <option name="browserUrl" value="" />
+      <option name="additionalOptions" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -871,6 +804,9 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -894,9 +830,6 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -960,19 +893,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="App Engine server.Handshake" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in model_tests" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestRouteMember.test_get_user_membership" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestRouteMember.test_create_and_get_entry" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_get_member_and_route_from_subject" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestEmailUtils" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestEmailUtils (3)" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_split_owner_subject_valid_re" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_split_owner_subject_valid" />
       <item index="5" class="java.lang.String" itemvalue="Python.autodoc" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.autodoc" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_get_member_and_route_from_subject" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in model_tests" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestRouteMember.test_get_user_membership" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestRouteMember.test_create_and_get_entry" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_split_owner_subject_valid" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestEmailUtils.test_split_owner_subject_valid_re" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestEmailUtils" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in TestEmailUtils (3)" />
       </list>
     </recent_temporary>
   </component>
@@ -989,25 +922,25 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1544" y="-219" width="1773" height="956" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="799" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32243517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39583334" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34836528" sideWeight="0.500282" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.120726496" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16525663" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28410372" sideWeight="0.49971798" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12638889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39583334" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34836528" sideWeight="0.500282" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25616437" sideWeight="0.49971798" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32243517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.120726496" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1218,7 +1151,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3328877" vertical-offset="19641" max-vertical-offset="45585">
           <caret line="1330" column="8" selection-start-line="1330" selection-start-column="8" selection-end-line="1330" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1242,7 +1174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
           <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1250,7 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="1755">
           <caret line="79" column="19" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1258,7 +1188,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25309736" vertical-offset="547" max-vertical-offset="2850">
           <caret line="47" column="6" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1266,7 +1195,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09380531" vertical-offset="7102" max-vertical-offset="29655">
           <caret line="492" column="6" selection-start-line="492" selection-start-column="6" selection-end-line="492" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1278,21 +1206,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/route_handler_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="6825">
-          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/message_handler_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.961538" vertical-offset="4829" max-vertical-offset="9975">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4829" max-vertical-offset="9975">
           <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1332,17 +1250,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
           <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-          <folding>
-            <marker date="1418631918000" expanded="true" signature="88:288" placeholder="handlers:" />
-            <marker date="1418631918000" expanded="true" signature="289:314" placeholder="inbound_services:" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/utils_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="669" max-vertical-offset="6825">
-          <caret line="296" column="0" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1352,32 +1259,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1126" max-vertical-offset="3855">
           <caret line="121" column="48" selection-start-line="121" selection-start-column="48" selection-end-line="121" selection-end-column="48" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/route_handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3630">
-          <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1845" max-vertical-offset="4440">
-          <caret line="103" column="24" selection-start-line="103" selection-start-column="24" selection-end-line="103" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1392,41 +1273,79 @@
     <entry file="file://$PROJECT_DIR$/messenger.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autodoc.py">
+    <entry file="file://$PROJECT_DIR$/index.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64416057" vertical-offset="1777" max-vertical-offset="3420">
-          <caret line="148" column="29" selection-start-line="148" selection-start-column="29" selection-end-line="148" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.061099797" vertical-offset="0" max-vertical-offset="491">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/tests/route_handler_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="295" max-vertical-offset="1035">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="512" max-vertical-offset="6810">
+          <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/utils_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30897704" vertical-offset="6107" max-vertical-offset="6915">
+          <caret line="422" column="31" selection-start-line="422" selection-start-column="31" selection-end-line="422" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1064" max-vertical-offset="4365">
+          <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/message_handlers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.230769" vertical-offset="3642" max-vertical-offset="4290">
-          <caret line="264" column="45" selection-start-line="264" selection-start-column="45" selection-end-line="264" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="2235" max-vertical-offset="4425">
+          <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1035">
+          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/route_handlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2136" max-vertical-offset="3630">
+          <caret line="177" column="56" selection-start-line="177" selection-start-column="56" selection-end-line="177" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view_models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2634408" vertical-offset="390" max-vertical-offset="2715">
-          <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2163" max-vertical-offset="2745">
+          <caret line="154" column="29" selection-start-line="154" selection-start-column="29" selection-end-line="154" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autodoc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5177453" vertical-offset="1777" max-vertical-offset="3420">
+          <caret line="141" column="17" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
           <folding />
         </state>
       </provider>

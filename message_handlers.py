@@ -112,22 +112,30 @@ class MessageSMSCreationHandler(APIBaseHandler):
         phone_number = self.get_param("From")
         source_type = messenger.SOURCE_TYPE_SMS
 
+        if len(phone_number) == 12:
+            phone_number = phone_number[2:]
+
         sender_user = models.User.query(models.User.phoneNumbers == phone_number).get()
         if sender_user is None:
+            print "no user with id"
             self.abort(422, "Could not find a user associated with that number")
 
         if MessageUtils.is_client_message(message_raw):
+            print "client msg"
             try:
                 route_id, body = MessageUtils.split_client_message(message_raw)
             except UtilsException, e:
+                print e
                 self.abort(422, e)
             try:
                 create_client_message(phone_number, messenger.SOURCE_TYPE_SMS,
                                       sender_user.get_id(), body, route_id)
             except MessageException, e:
+                print e
                 self.abort(422, e)
 
         elif MessageUtils.is_owner_message(message_raw):
+            print "owner msg"
             try:
                 member_id, route_id, body = MessageUtils.split_owner_message(message_raw)
                 #Todo fix this redundancy as create_owner_message also queries for the route
@@ -163,11 +171,13 @@ class MessageEmailCreationHandler(InboundMailHandler, APIBaseHandler):
 
         sender_user = models.User.query(models.User.emails == email_sender).get()
         if sender_user is None:
+            print "sender user is none"
             self.abort(200, "Could not find user from sender")
 
         # client message
         if MessageUtils.is_client_message(mail_message.subject):
             #add space to format as client message
+            print mail_message.subject
             route_id = MessageUtils.split_client_message(mail_message.subject + " ")[0]
             print route_id
             try:
@@ -219,6 +229,11 @@ class MessageNativeCreationHandler(APIBaseHandler):
         message_body = self.get_param("message")
         route_id = self.get_param("routeId").lower().strip()
 
+        print sender_user_id
+        print receiver_user_id
+        print message_body
+        print route_id
+
         sender_user = models.User.get_by_id(sender_user_id)
         if sender_user is None:
             self.abort(422, "could not find user by that username")
@@ -229,6 +244,7 @@ class MessageNativeCreationHandler(APIBaseHandler):
         message = None
         #message client -> owner
         if receiver_user_id is None:
+            print "client message"
             try:
                 message = create_client_message(source, source_type, sender_user_id,
                                                 message_body, route_id)
@@ -236,6 +252,7 @@ class MessageNativeCreationHandler(APIBaseHandler):
                 self.abort(422, e)
         #message owner -> client
         else:
+            print "owner message"
             try:
                 message = create_owner_message(source, source_type, sender_user_id,
                                                 message_body,receiver_user_id, route_id)
