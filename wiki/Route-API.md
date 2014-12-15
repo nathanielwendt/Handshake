@@ -18,8 +18,10 @@ Creates a route with 1 or more communication channels attached
 #####Response#####
 
 ~~~~
-{'emails': ['+', '*'],
+{'displayName': '+',
+ 'emails': ['+', '*'],
  'id': '+',
+ 'open': '+',
  'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',
@@ -89,8 +91,10 @@ Note: updating slots will wipe old slots and replace with new set.
 #####Response#####
 
 ~~~~
-{'emails': ['+', '*'],
+{'displayName': '+',
+ 'emails': ['+', '*'],
  'id': '+',
+ 'open': '+',
  'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',
@@ -114,8 +118,10 @@ None
 #####Response#####
 
 ~~~~
-{'emails': ['+', '*'],
+{'displayName': '+',
+ 'emails': ['+', '*'],
  'id': '+',
+ 'open': '+',
  'phoneNumbers': ['+', '*'],
  'slots': [{'active': '+',
             'cutoff': '+',

@@ -88,7 +88,8 @@ class TestRouteHandler(AppEngineTest):
             "id": self.route_id,
             "userId": "user001",
             "emails": ["email1@gmail.com","email2@gmail.com"],
-            "phoneNumbers": ["3603335346"]
+            "phoneNumbers": ["3603335346"],
+            "displayName": "GreenLeaf"
         }
         models.Route(**route_data).put()
 
@@ -443,7 +444,11 @@ class TestRouteListHandler(AppEngineTest):
         self.send()
         self.expect_resp_code(200)
         self.expect_resp_conforms(view_models.Route.view_list_contract())
-        self.assertEqual({"PlainJane", "CavalierBro", "ChiefDog"}, set(self.response_data["routes"]))
+        routes = set()
+        routes.add(self.response_data["routes"][0]["displayName"])
+        routes.add(self.response_data["routes"][1]["displayName"])
+        routes.add(self.response_data["routes"][2]["displayName"])
+        self.assertEqual({"PlainJane", "CavalierBro", "ChiefDog"}, routes)
 
     def test_invalid_user(self):
         self.method = "GET"

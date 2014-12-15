@@ -228,15 +228,16 @@ class RouteListHandler(APIBaseHandler):
         if user is None:
             self.abort(422, "User does not exist")
 
-        joined_routes = models.RouteMember.get_user_membership(user_id)
+        joined_route_ids = models.RouteMember.get_user_membership(user_id)
         created_routes = models.Route.query(models.Route.userId == user_id)
 
         all_routes = []
-        for joined_route in joined_routes:
-            all_routes.append(joined_route)
+        for joined_route_id in joined_route_ids:
+            route = models.Route.get_by_id(joined_route_id)
+            all_routes.append(route)
 
         for created_route in created_routes:
-            all_routes.append(created_route.displayName)
+            all_routes.append(created_route)
 
         self.set_response_view_model(view_models.Route.view_list_contract())
         self.api_response = view_models.Route.form_list(all_routes)

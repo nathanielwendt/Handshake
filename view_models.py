@@ -95,6 +95,8 @@ class Route(object):
             "userId": "+",
             "emails": ["+", "*"],
             "phoneNumbers": ["+", "*"],
+            "open": "+",
+            "displayName": "+",
             "slots": [AccessSlot.view_contract(), "*"]
         }
 
@@ -116,6 +118,8 @@ class Route(object):
             "userId": route.userId,
             "emails": json.dumps(route.emails),
             "phoneNumbers": json.dumps(route.phoneNumbers),
+            "open": route.is_now_valid(),
+            "displayName": route.displayName,
             "slots": slots
         }
 
@@ -126,9 +130,12 @@ class Route(object):
         }
 
     @staticmethod
-    def form_list(route_ids):
+    def form_list(routes):
+        route_list = []
+        for route in routes:
+            route_list.append(Route.form(route, []))
         return {
-            "routes": route_ids
+            "routes": route_list
         }
 
 class RouteMember(object):
